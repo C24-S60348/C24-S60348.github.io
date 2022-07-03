@@ -1,0 +1,192 @@
+body {
+  padding-top: 70px;
+  background-color: #e8e5d8c0;
+}
+
+.oren{
+  background-color: orangered;
+}
+
+b {
+  color: white;
+}
+
+.hitam {
+  color: black;
+  
+}
+
+.btn-group button {
+  background-color: white; /* Green background */
+  border: 1px solid whitesmoke; /* Green border */
+  color: black; /* White text */
+  padding: 10px 70px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 100%; /* Set a width if needed */
+  display: block;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #d7d2ba;
+}
+
+.putih {
+  background-color: white;
+}
+
+.jauh {
+  float: right;
+}
+
+/* footer */
+.chat-btn  {
+  position: absolute;
+  right: 14px;
+  bottom: 30px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background-color: rgb(49, 186, 49);
+  
+  font-size: 22px;
+  border: none;
+}
+
+.btn-save {
+  background-color: rgba(0,0,0,0);
+  border: none;
+}
+
+.btn-save i {
+  color:black !important;
+}
+
+.save {
+  background-color: rgb(235, 223, 144);
+}
+
+.pencil {
+  background-color: rgb(64, 64, 231);
+}
+
+.chat-btn i {
+  transition: all 0.9s ease;
+  font-size: 22px;
+  color: #fff;
+}
+
+.form-control:focus,
+.btn:focus {
+  box-shadow: none
+}
+
+#check {
+  display: none !important
+}
+
+/* input page*/
+input {
+  width: 100%;
+  margin: 8px;
+  padding: 10px 0px;
+}
+
+.input1 {
+  width: 100%;
+  margin: 8px;
+  padding: 10px 0px;
+  
+}
+
+input, text {
+  padding-left: 10px;
+  
+  
+}
+
+.input1, text {
+  padding-left: 10px;
+  background: none;
+}
+
+.divInput {
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+
+.kiri { 
+  width: 30px;
+  height: auto;
+  display: inline-block;
+  background: transparent;
+  border: none !important;
+  cursor: pointer;
+}
+
+/* about */
+#overlay_About {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #999;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+#popup_About {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgb(68, 65, 65);
+  width: 300px;
+  height: 250px;
+  margin-left: -150px; /*Half the value of width to center div*/
+  z-index: 200;
+      opacity: 0.2em;
+      color: white;
+}
+
+#popupclose_About {
+  float: right;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.popupcontent_About {
+  padding: 10px;
+}
+
+#button_About {
+  cursor: pointer;
+}
+
+.divButton {
+  margin-left: 10px;
+}
+
+.delete {
+  right: 80px !important;
+  color: black !important;
+}
+
+.btn-delete {
+  background-color: rgb(49, 186, 49);
+  border: none;
+}
+
+.btn-delete i {
+  color:black !important;
+}
+
+
