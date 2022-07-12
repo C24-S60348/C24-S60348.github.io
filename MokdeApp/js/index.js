@@ -11,7 +11,7 @@ $(function()
                 //i = index of list (start with 1)
                 myData = localStorage.getItem("data" + i);
                 myData = JSON.parse(myData);
-                htmlText = htmlText + "<tr><td><a href='index.html#btnDisplay/"+i+"'>" + myData.nickname + "</a></td></tr>";
+                htmlText = htmlText + "<tr><td><a href='Mokde.html#btnDisplay/"+i+"'>" + myData.nickname + "</a></td></tr>";
             }
         }
         else {
@@ -118,7 +118,7 @@ $(function()
 
         $('#maintable tbody').html(htmlText);
         //go to original link
-        window.location = 'index.html';
+        window.location = 'Mokde.html';
 
         //show main menu with table and Add Button
         $("#divmokdebtn").show();
@@ -155,7 +155,7 @@ $(function()
 
         alert('Data edited!');
 
-        window.location = 'index.html';
+        window.location = 'Mokde.html';
 
         $('#maintable tbody').html(htmlText);
 
@@ -237,7 +237,7 @@ $(function()
 
         alert("Data deleted!");
         //go to original link
-        window.location = 'index.html';
+        window.location = 'Mokde.html';
 
     });
 
@@ -312,7 +312,7 @@ $(function()
 
         alert('Done Restore!');
         
-        window.location = 'index.html';
+        window.location = 'Mokde.html';
 
         $("#divmokdebtn").show();
         $("#masterC").show();
@@ -375,13 +375,13 @@ $(function()
                 alert("Restore successfull !");
 
             
-                window.location = 'index.html';
+                window.location = 'Mokde.html';
 
             },
             error: function() {
                 alert("Error connect to db :(");
 
-                window.location = 'index.html';
+                window.location = 'Mokde.html';
             }
 
         });
@@ -423,7 +423,7 @@ $(function()
                 var data = JSON.parse(returndata);
                 if (data.status === 1 ) {
                     alert("Data for " + userEmail + " backup successfully");
-                    window.location = 'index.html';
+                    window.location = 'Mokde.html';
                 } else {
                     alert("Data failed to backup, either internet error or data already backup for email " + userEmail);
                 }
@@ -450,7 +450,7 @@ $(function()
         $("#divDisplay").hide();
         $("#divEdit").hide();
 
-        window.location = 'index.html';
+        window.location = 'Mokde.html';
 
     });
 
@@ -458,7 +458,7 @@ $(function()
     var link7 = crossroads.addRoute('clear', function() {
         localStorage.clear();
         alert("Data cleared!");
-        window.location = 'index.html';
+        window.location = 'Mokde.html';
 
     });
 

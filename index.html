@@ -1,299 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>MOKDE</title>
+      <title>Afwan's Website</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- CSS only -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
       <!-- Custom styles for this template -->
-      <link href="css/navbar-fixed-top.css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <style>
+         *{
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+         }
+      </style>
+   
    </head>
    <body>
-      <!--Mokde mainmenu -->
-      <div id="divmokdebtn">
-         <nav class="navbar navbar-default navbar-fixed-top oren">
-         <div>
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed fa fa-bars" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-               <a class="navbar-brand" href="./CRUD Tutorial Youtube/index.html"><b>Mokde</b></a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-               <ul class="nav navbar-nav putih">
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#btnRestore">Backup</a></li>
-                  <li><a href="#btnRestore">Restore</a></li> 
-                  <li><a href="#clear">Clear Storage</a></li> 
+      
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <a class="navbar-brand" href="#">Afwan's Website</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+         </button>
+       
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav mr-auto">
+             <li class="nav-item active">
+               <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+             </li>
+             <!--
+                  <li class="nav-item">
+                     <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Dropdown
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <a class="dropdown-item" href="#">Action</a>
+                     <a class="dropdown-item" href="#">Another action</a>
+                     <div class="dropdown-divider"></div>
+                     <a class="dropdown-item" href="#">Something else here</a>
+                     </div>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link disabled" href="#">Disabled</a>
+                  </li>
                </ul>
-            </div>
-         </div>  
-         </nav>
-      </div>
-
-      <div class="container">
-
-         <div id="masterC" style="display: none">
-            <div class="row">
-               <div class="table-responsive">
-                  <table id="maintable" class="table table-striped">
-                     <thead>
-
-                     </thead>
-                     <tbody>
-
-                     </tbody>
-                  </table>
-               </div>
-            </div>
+               <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+               </form> 
+            -->
          </div>
+       </nav>
+       <br>
+       <h3>My Website</h3>
 
-         <!--Frm add kenalan-->
-         <div id="divFrmAddKenalan" style="display: none">
-               <nav class="navbar navbar-default navbar-fixed-top oren">
-                  <div>
-                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed fa fa-bars" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-                        <button onclick="location.href=''" class="navbar-toggle kiri fa fa-arrow-left kiri"></button>
-                        <a class="navbar-brand" href="Mokde.html"><b>Input</b></a>
-                     </div>
-                     <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav putih">
-                           <li><a href="#about">About</a></li>
-                           <li><a href="#btnRestore">Backup</a></li>
-                           <li><a href="#btnRestore">Restore</a></li> 
-                           <li><a href="#clear">Clear Storage</a></li>
-                        </ul>
-                     </div>
-                  </div>  
-            </nav>
-         
-            <div class="row">
-               <div class="col-sm-6">
-                  <form class="form-signin" id="frmAddKenalan">
-                     <div class="container divInput">
-                        <h5>Enter Nickname</h5>
-                        <input type="text" id="nickname" name="nickname" placeholder="eg: John" required>
-                        <br><br> 
-                        <h5>Enter Username</h5>
-                        <input type="text" id="username" name="username" placeholder="eg: username for site credential!">
-                        <br><br>
-                        <h5>Enter Password</h5>
-                        <input type="password" id="password" name="password" placeholder="eg: password for site authorization">
-                     
-                        <div id="divsavebutton">
-                           <nav class="navbar navbar-fixed-bottom">
-                              <input type="checkbox" id="check">
-                              <label class="chat-btn save" for="check">
-                              <button class="btn-save" type="submit"> <i class="fa fa-save"></i> </button>
-                           </nav>
-                        </div>
-                     </div>
-
-                  </form>
-               </div>
-            </div>
-         </div>
-
-         <!-- #about -->
-         <div id="divAbout" style="display: none">
-
-            <nav class="navbar navbar-default navbar-fixed-top oren">
-               <div>
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed fa fa-bars" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-                     <button onclick="location.href=''" class="navbar-toggle kiri fa fa-arrow-left kiri"></button>
-                     <a class="navbar-brand" href="Mokde.html"><b>About</b></a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav putih">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#btnRestore">Backup</a></li>
-                        <li><a href="#btnRestore">Restore</a></li> 
-                        <li><a href="#clear">Clear Storage</a></li>
-                     </ul>
-                  </div>
-               </div>  
-            </nav>
-         
-            <div class="row">
-               <div class="col-sm-6">
-                  <div id="maincontent">
-                     <h1>Page Content<h2>
-                     <button id="button_About">Show Popup</button>
-                  </div>
-                  <div id="overlay_About"></div>
-                  <div id="popup_About">
-                     <div class="popupcontrols_About">
-                        <span id="popupclose_About">X</span>
-                     </div>
-                     <div class="popupcontent_About">
-                        <p><h1 style="color: white;">Mokde</h1>
-                           <br />This app:
-                        <ol>
-                           <li>Used to store username and password</li>
-                           <li>All data stored locally</li>
-                           <li>No internet connection is required</li>
-                        </ol></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         
-      
-
-         <!--DIV display data-->
-         <div id="divDisplay" style="display: none">
-
-            <nav class="navbar navbar-default navbar-fixed-top oren">
-               <div>
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed fa fa-bars" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-                     <button onclick="location.href=''" class="navbar-toggle kiri fa fa-arrow-left kiri"></button>
-                     <a class="navbar-brand" href="Mokde.html"><b>Display Data</b></a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav putih">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#btnRestore">Backup</a></li>
-                        <li><a href="#btnRestore">Restore</a></li> 
-                        <li><a href="#clear">Clear Storage</a></li>
-                     </ul>
-                  </div>
-               </div>  
-            </nav>
-         
-            <!-- Table -->
-            <div class="row" id="divDisplay_table">
-               <div class="col-sm-6">
-                  <div id="maintable2">
-                     
-                     
-                  </div>
-
-                  
-               </div>
-            </div>
-
-            <!-- EDIT BUTTON -->
-            <div id="divsavebutton">
-               <nav class="navbar navbar-fixed-bottom" id="btnEdit">
-                  
-                     
-               </nav>
-            </div>
-
-            <div id="divdeletebutton">
-               <nav class="navbar navbar-fixed-bottom" id="btnDelete">
-                  <input type="checkbox" id="check">
-                  <label class="chat-btn delete" for="check"><button type="submit">
-                  <i class="fa fa-trash-o"></i></button>
-               </nav>
-            </div>
-         </div>
-
-         <!--DIV Edit data-->
-         <div id="divEdit" style="display: none">
-
-            <nav class="navbar navbar-default navbar-fixed-top oren">
-               <div>
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed fa fa-bars" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-                     <button onclick="location.href=''" class="navbar-toggle kiri fa fa-arrow-left kiri"></button>
-                     <a class="navbar-brand" href="Mokde.html"><b>Edit Data</b></a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav putih">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#btnRestore">Backup</a></li>
-                        <li><a href="#btnRestore">Restore</a></li> 
-                        <li><a href="#clear">Clear Storage</a></li>
-                     </ul>
-                  </div>
-               </div>  
-            </nav>
-         
-            <!-- Form -->
-            <form class="form-signin" id="frmEditsKenalan">
-               <div class="container divInput">
-                  <input type="hidden" id="idEdit" placeholder="id.." />
-                  <h5>NickName</h5>
-                  <input type="text" id="nicknameEdit" >
-                  <br><br>
-                  <h5>User Name</h5>
-                  <input type="text" id="usernameEdit" >
-                  <br><br> 
-                  <h5>User Password</h5>
-                  <input type="text" id="passwordEdit" >
-                  
-                  <div id="divsavebutton">
-                     <nav class="navbar navbar-fixed-bottom">
-                        <input type="checkbox" id="check">
-                        <label class="chat-btn save" for="check">
-                           <button class="btn-save" type="submit">
-                        <i class="fa fa-save"></i></button>
-                     </nav>
-                  </div>
-               </div>
-            </form>
-         </div>
-
-         <!--Restore interface-->
-         <div id="divRestore" style="display: none">
-
-            <nav class="navbar navbar-default navbar-fixed-top oren">
-               <div>
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed fa fa-bars" data-toggle="collapse"
-                        data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
-                     <button onclick="location.href=''" class="navbar-toggle kiri fa fa-arrow-left kiri"></button>
-                     <a class="navbar-brand" href="Mokde.html"><b>Restore/Backup</b></a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav putih">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#btnRestore">Backup</a></li>
-                        <li><a href="#btnRestore">Restore</a></li> 
-                        <li><a href="#clear">Clear Storage</a></li>
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-
-            <form class="form-signin" id="frmRestoreKenalan">
-               <div class="container divInput">
-                  <h5>Enter Email</h5>
-                  <input type="text" id="userEmail" name="userEmail" placeholder="skimtech@edu.com" required>
-                  <br><br><br>
-
-                  <button class="btn btn-success divButton" type="submit" onclick=" location.href='#backup2' ">
-                     Backup</button>
-                  <button class="btn btn-info" type="submit" onclick=" location.href='#restore2' ">
-                     Restore</button>
-               </div>
-            </form>
-         </div>
+       <div class="card-group">
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Mokde App</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/Mokde.jpg" alt="Card image cap">
             
-      
-      </div>
+            <p class="card-text">Assignment website on Semester 4 in Science Computer - Mobile Computing Degree in UMT.</p>
+            <a href="./MokdeApp/Mokde.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
 
-      <!-- Floating add button -->
-      <div id="divaddbutton">
-         <nav class="navbar navbar-fixed-bottom">
-            <input type="checkbox" id="check">
-            <label class="chat-btn" for="check"><a class="btn" href="#btnAddKenalan" role="button">
-            <i class="fa fa-plus"></i>
-         </nav>
-      </div>
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">CRUD Tutorial Follow</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/uWu HTML.PNG" alt="Card image cap">
+            
+            <p class="card-text">Some website that i follow tutorial on Youtube.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <!--
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+               <div class="card-header">Header
+                  
+               </div>
+               <div class="card-body ">
+               <h5 class="card-title">Info card title</h5>
+               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+               </div>
+            </div>
+         -->
+       </div>
+
+
+       <br><br>
+
+      <h3>My Apps</h3>
+      <div class="card-group">
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Waktu Solat</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/WaktuSolat.jpg" alt="Card image cap">
+            
+            <p class="card-text">Assignment website on Semester 4 in Science Computer - Mobile Computing Degree in UMT.</p>
+            <a href="./MokdeApp/Mokde.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">HeadCounter System</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/HeadCounterSystem.jpg" alt="Card image cap">
+            
+            <p class="card-text">Some website that i follow tutorial on Youtube.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <!--
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Header
+               
+            </div>
+            <div class="card-body ">
+            <h5 class="card-title">Info card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+         </div>
+         -->
+       </div>
+      <br><br>
+
+      <h3>My Games</h3>
+      <div class="card-group">
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Starman Oddysey</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/Starman Oddysey.jpg" alt="Card image cap">
+            
+            <p class="card-text">Platformer old-like Mario game to learn Chemistry subject.</p>
+            <a href="./MokdeApp/Mokde.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">PnC Game</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/PnC Game.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">DIFFI - Learn Arabic and Mandarin</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/DIFFI App.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+         </div>
+         <div class="card-group">
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Water Exploration</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/" alt="">
+            
+            <p class="card-text">NANTI NAK BUAT BALIKKK</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
          
 
-      <script src="js/jquery-3.2.1.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/signals.min.js"></script>
-      <script src="js/hasher.min.js"></script>
-      <script src="js/crossroads.min.js"></script>
-      <script src="js/index.js"></script>
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Lightics Exploration</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/LighticsExploration.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
 
-   </body>
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Mathsery Island</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/Mathsery Island.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+         </div><div class="card-group">
+
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Fish Eat Fish</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/FishEatFish.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">Kereta PON PON</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/KeretaPONPON.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div>
+
+         <div class="card border-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">MainMatik</div>
+            <div class="card-body ">
+               <img class="card-img-top" src="./img/MainMatik.jpg" alt="Card image cap">
+            
+            <p class="card-text">Permutation and Combination learning game.</p>
+            <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
+            </div>
+         </div></div>
+
+      <br><br>
+      <footer>
+         About Me : <br>
+         Name : Afwan Haziq bin Hairollkahar <br>
+         Email : afwanhaziq987@gmail.com
+      </footer>
+      
+
+      <!-- JavaScript Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+</body>
 </html>
