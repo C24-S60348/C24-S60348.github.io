@@ -1,0 +1,83 @@
+body{
+    padding: 20px;
+    display: flex;
+    background-image: linear-gradient(60deg, lightgray, lightgreen);
+    font-family: 'Roboto', sans-serif;
+}
+
+#container{
+    widows: 100px;
+    height: 600px;
+    background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.1));
+    margin: auto;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+h2{
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+}
+
+#box{
+    width: 500px;
+    height: 520px;
+    background-color: #eaedef;
+    margin: auto;
+    top: 20px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.inp{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+input{
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 4px darkgreen;
+    width: 250px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.qr-btn{
+    position: relative;
+    font-weight: bold;
+    font-size: 15px;
+    background-image: linear-gradient(120deg, rgb(169, 226, 169), lightgreen);
+    padding: 8px;
+    color: black;
+    cursor: pointer;
+    border: none;
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input:focus, button:focus{
+    outline: none;
+}
+
+input:hover{
+    border-bottom: solid 4px lightgreen;
+}
+#qr-result{
+    padding-left: 10px;
+    display: flex;
+}

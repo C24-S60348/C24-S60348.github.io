@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <div id="box">
+            <h2>QR Code Generator</h2>
+            <form type="text" onclick="preventDefault()">
+                <div class="inp">
+                    <input id="qr-text" type="url" placeholder="URL to Generate QR Code" required/>
+
+                </div><br />
+                <div class="button">
+                    <button class="qr-btn" onclick="generateQRCode()">Create QR Code</button>
+                </div>
+            </form><br />
+            <div class="canvas">
+                <canvas id="qr-code"></canvas>
+            </div><br />
+            <div>
+                <p id="qr-result">This is QR Code: </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
