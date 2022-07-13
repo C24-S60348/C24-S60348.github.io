@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html> 
+<head>
+
+    <title>HeadCounter System by AF1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            background-color: aquamarine;
+
+        }
+        
+    </style>
+</head>    
+<body>
+
+<div class="container p-5 my-4 bg-light rounded-3">
+    
+
+    <h1>System Headcounter</h1>
+
+    <form class="form-group" action="https://script.google.com/macros/s/AKfycbxyVPIw5D1qJZVkbIe8OaKW1OisrdhUQlPlEzXcR-qAgix1TWuNQQKD_4zvxKOJNM_ehA/exec" method="post" target="_blank">
+        <label for="name">Nama:</label>
+        <input class="form-control" type="text" id="name" name="name"><br>
+
+        <label for="mk">Kehadiran : </label>
+        <br>
+        <div class="form-check">
+
+
+            <input class="form-check-input" type="radio" id="m" name="mk" value="M">
+            <label class="form-check-label" for="m">Masuk</label><br>
+            <input class="form-check-input" type="radio" id="k" name="mk" value="K">
+            <label class="form-check-label" for="k">Keluar</label><br>
+            
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Submit</button>
+
+    </form>
+</div>
+
+</body> </html>
