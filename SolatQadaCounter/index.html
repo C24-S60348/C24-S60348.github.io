@@ -32,58 +32,58 @@
 <body>
     
     <!-- ada petak, dlmnya ada 5 column untuk setiap solat -->
-    <div class="petak container text-center">
+    <div class="petak text-center">
         <div class="subuh btnSolat">
-            <h1 id="subuhCounter">1</h1>
+            <h2 id="subuhCounter">1</h2>
             <button class="btn btn-primary" id="subuhAdd">
                 +
             </button>
-            <h2>Subuh</h2>
-            <button id="subuhMinus">
+            <h3>Subuh</h3>
+            <button class="btn btn-danger" id="subuhMinus">
                 -
             </button>
         </div>
         
         <div class="zohor btnSolat">
-            <h1 id="zohorCounter">0</h1>
+            <h2 id="zohorCounter">0</h2>
             <button class="btn btn-primary" id="zohorAdd">
                 +
             </button>
-            <h2>Zohor</h2>
-            <button id="zohorMinus">
+            <h3>Zohor</h3>
+            <button class="btn btn-danger" id="zohorMinus">
                 -
             </button>
         </div>
         
         <div class="asar btnSolat">
-            <h1 id="asarCounter">0</h1>
+            <h2 id="asarCounter">0</h2>
             <button class="btn btn-primary" id="asarAdd">
                 +
             </button>
-            <h2>Asar</h2>
-            <button id="asarMinus">
+            <h3>Asar</h3>
+            <button class="btn btn-danger" id="asarMinus">
                 -
             </button>
         </div>
         
         <div class="maghrib btnSolat">
-            <h1 id="maghribCounter">0</h1>
+            <h2 id="maghribCounter">0</h2>
             <button class="btn btn-primary" id="maghribAdd">
                 +
             </button>
-            <h2>Maghrib</h2>
-            <button id="maghribMinus">
+            <h3>Maghrib</h3>
+            <button class="btn btn-danger" id="maghribMinus">
                 -
             </button>
         </div>
         
         <div class="isyak btnSolat">
-            <h1 id="isyakCounter">0</h1>
+            <h2 id="isyakCounter">0</h2>
             <button class="btn btn-primary" id="isyakAdd">
                 +
             </button>
-            <h2>Isyak</h2>
-            <button id="isyakMinus">
+            <h3>Isyak</h3>
+            <button class="btn btn-danger" id="isyakMinus">
                 -
             </button>
         </div>
@@ -94,46 +94,172 @@
     <script>
         $(document).ready(function() {
             
-            //get variable in localstorage
+            //START get variable in localstorage
             var subuh = 1;
+            var zohor = 0;
+            var asar = 0;
+            var maghrib = 0;
+            var isyak = 0;
             
-            console.log("subuhh " + localStorage.hasOwnProperty("subuh"));
+            console.log("subuhh " + localStorage.hasOwnProperty("AppQadaSolat_subuh"));
             
-            if(!localStorage.hasOwnProperty("subuh") ) {
+            if(!localStorage.hasOwnProperty("AppQadaSolat_subuh") ) {
+             //new user
                 subuh = 0;
                 
             } else {
-               subuh = localStorage.getItem("subuh");
+            // get item from localStorage
+               subuh = localStorage.getItem("AppQadaSolat_subuh");
+               
+            }
+            
+            if(!localStorage.hasOwnProperty("AppQadaSolat_zohor") ) {
+             //new user
+                zohor = 0;
+                
+            } else {
+            // get item from localStorage
+               zohor = localStorage.getItem("AppQadaSolat_zohor");
               
             }
+            
+            if(!localStorage.hasOwnProperty("AppQadaSolat_asar") ) {
+             //new user
+                asar = 0;
+                
+            } else {
+            // get item from localStorage
+              asar = localStorage.getItem("AppQadaSolat_asar");            
+              
+            }
+            
+            if(!localStorage.hasOwnProperty("AppQadaSolat_maghrib") ) {
+             //new user
+                maghrib = 0;
+                
+            } else {
+            // get item from localStorage
+              maghrib = localStorage.getItem("AppQadaSolat_maghrib");
+              
+              
+            }
+            
+            if(!localStorage.hasOwnProperty("AppQadaSolat_isyak") ) {
+             //new user
+                isyak = 0;
+                
+            } else {
+            // get item from localStorage
+              isyak = localStorage.getItem("AppQadaSolat_isyak");
+              
+            }
+            
+            //END check localStorage
             
             
             //set it in html
             $("#subuhCounter").html(subuh);
+            $("#zohorCounter").html(zohor);
+            $("#asarCounter").html(asar);
+            $("#maghribCounter").html(maghrib);
+            $("#isyakCounter").html(isyak);
             
             
-            
-            const solat = ['Subuh','Zohor','Asar','Maghrib','Isyak'];
-            for(let i=0; i<5; i++) {
-                
-               //alert( solat[i] );
-                
-            }
-            
-            //ayam
-            
-            $("#subuhAdd").click(function() {
-            //tambah counter 
-                alert(subuh);
-                //var subuh = parseInt(subuh) + 1;
-                //localStorage.setItem("subuh", subuh);
+         //Click button
+         $("#subuhAdd").click(function() {
+         //tambah counter 
+ 
                 subuh = String(parseInt(subuh) +1);
-                alert("baru "+ subuh );
+                
+                localStorage.setItem("AppQadaSolat_subuh", subuh);
+                $("#subuhCounter").html(subuh);
             }); 
-            
-            
+        
+        $("#subuhMinus").click(function() {
+            //tambah counter 
+ 
+                subuh = String(parseInt(subuh) -1);
+                
+                localStorage.setItem("AppQadaSolat_subuh", subuh);
+                $("#subuhCounter").html(subuh);
+            }); 
+        
+        $("#zohorAdd").click(function() {
+         //tambah counter 
+ 
+                zohor = String(parseInt(zohor) +1);
+                
+                localStorage.setItem("AppQadaSolat_zohor", zohor);
+                $("#zohorCounter").html(zohor);
+            }); 
+        
+        $("#zohorMinus").click(function() {
+            //tambah counter 
+ 
+                zohor = String(parseInt(zohor) -1);
+                
+                localStorage.setItem("AppQadaSolat_zohor", zohor);
+                $("#zohorCounter").html(zohor);
+            }); 
+        
+        $("#asarAdd").click(function() {
+         //tambah counter 
+ 
+                asar = String(parseInt(asar) +1);
+                
+                localStorage.setItem("AppQadaSolat_asar", asar);
+                $("#asarCounter").html(asar);
+            }); 
+        
+        $("#asarMinus").click(function() {
+            //tambah counter 
+ 
+                asar = String(parseInt(asar) -1);
+                
+                localStorage.setItem("AppQadaSolat_asar", asar);
+                $("#asarCounter").html(asar);
+            });
+        
+        $("#maghribAdd").click(function() {
+         //tambah counter 
+ 
+                maghrib = String(parseInt(maghrib) +1);
+                
+                localStorage.setItem("AppQadaSolat_maghrib", maghrib);
+                $("#maghribCounter").html(maghrib);
+            }); 
+        
+        $("#maghribMinus").click(function() {
+            //tambah counter 
+ 
+                maghrib = String(parseInt(maghrib) -1);
+                
+                localStorage.setItem("AppQadaSolat_maghrib", maghrib);
+                $("#maghribCounter").html(maghrib);
+            }); 
+        
+        $("#isyakAdd").click(function() {
+         //tambah counter 
+ 
+                isyak = String(parseInt(isyak) +1);
+                
+                localStorage.setItem("AppQadaSolat_isyak", isyak);
+                $("#isyakCounter").html(isyak);
+            }); 
+        
+        $("#isyakMinus").click(function() {
+            //tambah counter 
+ 
+                isyak = String(parseInt(isyak) -1);
+                
+                localStorage.setItem("AppQadaSolat_isyak", isyak);
+                $("#isyakCounter").html(isyak);
+            }); 
+        
         });
         
+        //Nanti try jadikan dalam json
+        //Lpstu try buat function, contoh, counter("isyak"); huhu
         
     </script>
     
