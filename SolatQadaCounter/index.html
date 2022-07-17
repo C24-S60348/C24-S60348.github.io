@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solat Qada' Counter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- device default width = 1 untuk fon,
+    sebab ni kan app  -->
+    <link rel="stylesheet" href="bootstrap.min.js">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    <style>
+        .petak {
+            display: flex;
+            flex-direction: row;
+        }
+        .btnSolat {
+            display: flex;
+            flex-direction: column;
+        }
+        
+    </style>
+    <script src="bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+</head>
+<body>
+    
+    <!-- ada petak, dlmnya ada 5 column untuk setiap solat -->
+    <div class="petak container text-center">
+        <div class="subuh btnSolat">
+            <h1 id="subuhCounter">1</h1>
+            <button class="btn btn-primary" id="subuhAdd">
+                +
+            </button>
+            <h2>Subuh</h2>
+            <button id="subuhMinus">
+                -
+            </button>
+        </div>
+        
+        <div class="zohor btnSolat">
+            <h1 id="zohorCounter">0</h1>
+            <button class="btn btn-primary" id="zohorAdd">
+                +
+            </button>
+            <h2>Zohor</h2>
+            <button id="zohorMinus">
+                -
+            </button>
+        </div>
+        
+        <div class="asar btnSolat">
+            <h1 id="asarCounter">0</h1>
+            <button class="btn btn-primary" id="asarAdd">
+                +
+            </button>
+            <h2>Asar</h2>
+            <button id="asarMinus">
+                -
+            </button>
+        </div>
+        
+        <div class="maghrib btnSolat">
+            <h1 id="maghribCounter">0</h1>
+            <button class="btn btn-primary" id="maghribAdd">
+                +
+            </button>
+            <h2>Maghrib</h2>
+            <button id="maghribMinus">
+                -
+            </button>
+        </div>
+        
+        <div class="isyak btnSolat">
+            <h1 id="isyakCounter">0</h1>
+            <button class="btn btn-primary" id="isyakAdd">
+                +
+            </button>
+            <h2>Isyak</h2>
+            <button id="isyakMinus">
+                -
+            </button>
+        </div>
+    </div>
+    
+    
+    
+    <script>
+        $(document).ready(function() {
+            
+            //get variable in localstorage
+            var subuh = 1;
+            
+            console.log("subuhh " + localStorage.hasOwnProperty("subuh"));
+            
+            if(!localStorage.hasOwnProperty("subuh") ) {
+                subuh = 0;
+                
+            } else {
+               subuh = localStorage.getItem("subuh");
+              
+            }
+            
+            
+            //set it in html
+            $("#subuhCounter").html(subuh);
+            
+            
+            
+            const solat = ['Subuh','Zohor','Asar','Maghrib','Isyak'];
+            for(let i=0; i<5; i++) {
+                
+               //alert( solat[i] );
+                
+            }
+            
+            //ayam
+            
+            $("#subuhAdd").click(function() {
+            //tambah counter 
+                alert(subuh);
+                //var subuh = parseInt(subuh) + 1;
+                //localStorage.setItem("subuh", subuh);
+                subuh = String(parseInt(subuh) +1);
+                alert("baru "+ subuh );
+            }); 
+            
+            
+        });
+        
+        
+    </script>
+    
+</body>
+</html>
