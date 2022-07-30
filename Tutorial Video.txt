@@ -1,0 +1,11 @@
+Godot 3.1 Tutorial || Bot Afraid Height using RayCast2D
+Godot 3.1 Tutorial || Magnet taking coins
+Godot 3.1 Tutorial || Magnet taking coins, Part 2 - Adding Score and Deleting coin
+Godot 3.1 Tutorial || Blinking Player when clicked
+Godot 3.1 Tutorial || Coinbox Spread
+Godot 3.1 Tutorial || Magnetic Effect on Platformer game
+Godot 3.1 Tutorial || Player movement trails particles
+Godot 3.1 Tutorial || Randomize movement or state bot
+Godot 3.1 Tutorial || Unique or different skin for every player
+
+--DAN SEMUA YANG PERNAH ADA KAT YOUTUBE CHANNEL

@@ -1,0 +1,84 @@
+<head>
+  <title>Website Design</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Made 26 Feb 2021 -->
+</head>
+<body>
+  <div class="main">
+    <nav> 
+      <div class="logo">
+        <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355167/samples/htmltutorial/logo_fdwng2.png">
+      </div>
+      <div class="nav-links">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Phone</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Cart</a></li>
+        </ul>
+      </div>
+      
+    </nav>
+    
+    <div class="information">
+      <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355200/samples/htmltutorial/mobile_lzjhrb.png" class="mobile">
+      <div id="circle">
+        <div class="feature one">
+          <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355193/samples/htmltutorial/camera_wqx0xg.png">
+          <div>
+            <h1>Camera</h1>
+            <p>12MP, Wide Angle Lens</p>
+          </div>
+        </div>
+        <div class="feature two">
+          <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355167/samples/htmltutorial/processor_ljt2ok.png">
+          <div>
+            <h1>Processor</h1>
+            <p>Snapdragon Octa-core 11nm</p>
+          </div>
+        </div>
+        <div class="feature three">
+          <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614356217/samples/htmltutorial/display_vid7d8.png">
+          <div>
+            <h1>Display</h1>
+            <p>6.5" Mini-Drop Fullscreen</p>
+          </div>
+        </div>
+        <div class="feature four">
+          <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355174/samples/htmltutorial/battery_yeejzv.png">
+          <div>
+            <h1>Battery</h1>
+            <p>5000mah, 720Hrs Standby</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="controls">
+      <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355166/samples/htmltutorial/arrow_vdh7cf.png" id="upBtn">
+      <h3>Features</h3>
+      <img src="https://res.cloudinary.com/dtziexma1/image/upload/v1614355166/samples/htmltutorial/arrow_vdh7cf.png" id="downBtn">
+    </div>
+    
+  </div>
+  <script>
+    var circle = document.getElementById("circle");
+    var upBtn = document.getElementById("upBtn");
+    var downBtn = document.getElementById("downBtn");
+    
+    var rotateValue = circle.style.transform;
+    var rotateSum;
+    
+    upBtn.onclick = function(){
+      rotateSum = rotateValue + "rotate(-90deg)";
+      circle.style.transform = rotateSum;
+      rotateValue = rotateSum;
+    }
+    downBtn.onclick = function(){
+      rotateSum = rotateValue + "rotate(+90deg)";
+      circle.style.transform = rotateSum;
+      rotateValue = rotateSum;
+    }
+  </script>
+</body>
