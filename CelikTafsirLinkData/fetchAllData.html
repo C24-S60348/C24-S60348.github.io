@@ -1,28 +1,17 @@
+<!DOCTYPE html>
 <html>
-
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-  let message = "Hello, world!!!!";
-  document.write(message);
-
-  function makeHttpObject() {
-  try {return new XMLHttpRequest();}
-  catch (error) {}
-  try {return new ActiveXObject("Msxml2.XMLHTTP");}
-  catch (error) {}
-  try {return new ActiveXObject("Microsoft.XMLHTTP");}
-  catch (error) {}
-
-  throw new Error("Could not create HTTP request object.");
-}
-
-var request = makeHttpObject();
-request.open("GET", "https://celiktafsir.net/surah-001-al-fatihah/", true);
-request.send(null);
-request.onreadystatechange = function() {
-  if (request.readyState == 4)
-    document.write(request.responseText);
-};
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").hide();
+  });
+  $.ajax({ url: 'https://celiktafsir.net/surah-001-al-fatihah/', success: function(data) { alert(data); } });
   
+});
 </script>
-  
+</head>
+<body>
+</body>
 </html>
