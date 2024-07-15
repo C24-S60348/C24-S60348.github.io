@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $("p").hide();
-  });
-  $.ajax({ url: 'https://celiktafsir.net/surah-001-al-fatihah/', success: function(data) { alert(data); } });
-  
-});
-</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("button").click(function() {
+        $("p").hide();
+      });
+
+      // Tunggu hingga elemen target siap, baru panggil AJAX
+      $("body").append("<div id='content'></div>");
+      $.ajax({
+        url: 'https://celiktafsir.net/surah-001-al-fatihah/',
+        success: function(data) {
+          $("#content").html(data);
+        }
+      });
+    });
+  </script>
 </head>
 <body>
-  test
+  <p>test</p>
+  <button>Hide</button>
 </body>
 </html>
