@@ -4,9 +4,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
-      $("button").click(function() {
-        $("p").hide();
-      });
 
       // Tunggu hingga elemen target siap, baru panggil AJAX
       $("body").append("<div id='content'></div>");
@@ -14,6 +11,10 @@
         url: 'https://celiktafsir.net/surah-001-al-fatihah/',
         success: function(data) {
           $("#content").html(data);
+        },
+        error: function(xhr, status, error) {
+          console.error("Error fetching data:", error);
+          $("#content").text("Error fetching data. Please try again later.");
         }
       });
     });
@@ -21,6 +22,5 @@
 </head>
 <body>
   <p>test</p>
-  <button>Hide</button>
 </body>
 </html>
