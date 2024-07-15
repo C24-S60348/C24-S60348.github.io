@@ -1,7 +1,7 @@
 <html>
 
 <script>
-  let message = "Hello, world!";
+  let message = "Hello, world!!!!";
   document.write(message);
 
   function makeHttpObject() {
@@ -20,7 +20,7 @@ request.open("GET", "https://celiktafsir.net/surah-001-al-fatihah/", true);
 request.send(null);
 request.onreadystatechange = function() {
   if (request.readyState == 4)
-    alert(request.responseText);
+    document.write(request.responseText);
 };
   
 </script>
