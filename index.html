@@ -116,523 +116,323 @@
          </h3>
 
          <div class="center" style="text-align: center; align-items: center; display: flex; flex-direction: column; align-content: space-between; ">
-         
-         <div class="card-group">
+             
+        <script>
+            function createcard(title, img, made, desc, link)
+            {
+                return `
             <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Mokde App</div>
+               <div class="card-header">`+title+`</div>
                
                <div class="card-body ">
                   <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/Mokde.jpg" alt="Card image cap">
+                     <img class="card-img-top" src="`+img+`" alt="Card image cap">
                
                   <div class="tooltip-content">
-                     Made July 2022
+                     `+made+`
                   </div> 
                </div>
                   
-               <p class="card-text">Assignment website on Semester 4 in Science Computer - Mobile Computing Degree in UMT.</p>
-               <a href="./MokdeApp/Mokde.html" class="btn btn-primary">Go</a>
+               <p class="card-text">`+desc+`</p>
+               <a href="`+link+`" class="btn btn-primary">Go</a>
                </div>
             </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">CRUD Tutorial</div>
-               
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/uWu HTML.PNG" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made 8 Jan 2021
-                  </div> 
-               </div>
-
-               <p class="card-text">TodoList website that i follow along tutorial on Youtube.</p>
-               <a href="./CRUD Tutorial Youtube/index.html" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">QR Code Generator Tutorial</div>
-               
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/qrcodeGenerator.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made 4 Jan 2021
-                  </div> 
-               </div>
-
-               <p class="card-text">QR Code Generator website that i follow tutorial on Youtube.</p>
-               <a href="./QR Scanner3/index.html" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
+                `;
+            }
+            function cardgroup(card1, card2, card3)
+            {
+                
+                return '<div class="card-group">' + card1 + card2 + card3 + '</div>';
+            }
+        </script>
+        
+        <div id="mywebsitedata"></div>
+        <script>
+			var card1 = "";
+			var card2 = "";
+			var card3 = "";
+			var cardgroup = "";
+			
+            //line 1
+            card1 = createcard(
+                "Mokde App",
+                "./img/Mokde.jpg",
+                "Made July 2022",
+                "Assignment website on Semester 4 Degree in UMT.",
+                "./MokdeApp/Mokde.html");
+                
+            card2 = createcard(
+                "CRUD Tutorial",
+                "./img/uWu HTML.PNG",
+                "Made 8 Jan 2021",
+                "TodoList website that i follow along tutorial on Youtube.",
+                "./CRUD Tutorial Youtube/index.html");
+                
+            card3 = createcard(
+                "QR Code Generator Tutorial",
+                "./img/qrcodeGenerator.png",
+                "Made 4 Jan 2021",
+                "QR Code Generator website that i follow tutorial on Youtube",
+                "./QR Scanner3/index.html");
+                
+            cardgroup = cardgroup(card1, card2, card3);
             
-         </div>
-         
-
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">PandaMakan</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/pandamakan.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Ogos 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text">Front-End interface inspired by FoodPanda.</p>
-               <a href="https://c24-s60348.github.io/individualAssignmentCordova/main.html" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">LabTest FrontEnd Sem 4</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/LabTestCordova.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Ogos 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text">Making an app to retrieve JSON data and display the id, email, name, and so on.</p>
-               <a href="https://c24-s60348.github.io/labtestFrontEnd/" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Group Assignment Web Sem 3</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/EndangeredAnimalsWebSem3GroupProject.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Feb 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text">Website to inform people about endangered species.</p>
-               <a href="https://c24-s60348.github.io/S60348-SEM3-WEB/GroupProject/ourWebsite.html" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-         </div>
-         
+            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            
+            //line 2
+            card1 = createcard(
+                "PandaMakan",
+                "./img/pandamakan.png",
+                "Made Ogos 2022",
+                "Front-End interface inspired by FoodPanda.",
+                "https://c24-s60348.github.io/individualAssignmentCordova/main.html");
+                
+            card2 = createcard(
+                "LabTest FrontEnd Sem 4",
+                "./img/LabTestCordova.png",
+                "Made Ogos 2022",
+                "Making an app to retrieve JSON data and display the id, email, name, and so on.",
+                "https://c24-s60348.github.io/labtestFrontEnd/");
+                
+            card3 = createcard(
+                "Group Assignment Web Sem 3",
+                "./img/EndangeredAnimalsWebSem3GroupProject.png",
+                "Made Feb 2022",
+                "Website to inform people about endangered species.",
+                "https://c24-s60348.github.io/S60348-SEM3-WEB/GroupProject/ourWebsite.html");
+                
+            cardgroup = cardgroup(card1, card2, card3);
+            
+            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            
+        </script>
 
          <br><br>
 
          <h3 id="myAppsTitle" class="title">My Apps</h3>
-
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Hadis 40 Imam Nawawi</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/hadis40.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Dis 2019
-                  </div> 
-               </div>
-               
-               <p class="card-text">  </p>
-               <a href="https://play.google.com/store/apps/details?id=com.af1gaming.hadis40&hl=ms&gl=US" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Celik Tafsir</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/celiktafsir.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made July 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://play.google.com/store/apps/details?id=com.af1productions.celiktafsir&hl=ms&gl=US" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
+		 
+		 <div id="myappsdata"></div>
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "Hadis 40 Imam Nawawi",
+                "./img/hadis40.png",
+                "Made Dec 2019",
+                "Book app for Hadis 40 Imam Nawawi",
+                "https://play.google.com/store/apps/details?id=com.af1gaming.hadis40&hl=ms&gl=US");
+                
+            card2 = createcard(
+                "Celik Tafsir",
+                "./img/celiktafsir.png",
+                "Made July 2020",
+                "Book app for celiktafsir.net",
+                "https://play.google.com/store/apps/details?id=com.af1productions.celiktafsir&hl=ms&gl=US");
+                
+            card3 = createcard(
+                "Formula Calculator",
+                "./img/formula calculator.png",
+                "Made Oct 2019",
+                "",
+                "https://play.google.com/store/apps/details?id=io.kodular.afwanhaziq987.FormulaCalculator&hl=ms&gl=US");
+                
+            cardgroup = cardgroup(card1, card2, card3);
             
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+            
+            //line 2
+            card1 = createcard(
+                "Balance It",
+                "./img/BalanceIt.png",
+                "Made Nov 2022",
+                "Balancing game",
+                "https://play.google.com/store/apps/details?id=com.af1productions.balanceit");
+                
+            card2 = createcard(
+                "Mudah Belajar Arab + Jawi",
+                "./img/mudahBelajarArab.png",
+                "Made Sep 2020",
+                "App to learn Arabic language and Jawi text.",
+                "https://play.google.com/store/apps/details?id=com.af1productions.mudahbelajararab");
+                
+            card3 = createcard(
+                "Mari Belajar Bahasa Arab - Unity3D",
+                "./img/MariBelajarArabUnity3D.png",
+                "Made Feb 2020",
+                "The first version of Mudah Belajar Arab but using Unity3D engine.",
+                "https://play.google.com/store/apps/details?id=com.af1productions.belajararab");
+                
+            cardgroup = cardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+			
+			//line 3
+            card1 = createcard(
+                "Waktu Solat",
+                "./img/WaktuSolat.jpg",
+                "Made May 2020",
+                "Waktu Solat system to show prayer time in mosque",
+                "https://afwanhaziq.itch.io/waktu-solat");
+                
+            card2 = createcard(
+                "HeadCounter System",
+                "./img/HeadCounterSystem.jpg",
+                "Made March 2022",
+                "Headcounter system for event during Covid19 - Admin System",
+                "https://afwanhaziq.itch.io/headcounter-system");
+                
+            card3 = createcard(
+                "HeadCounter System - Input",
+                "./img/SystemHeadcounter_Input.png",
+                "Made March 2022",
+                "Headcounter system for event during Covid19 - Website for users",
+                "./HeadCounter_System/index.html");
+                
+            cardgroup = cardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+			
+			//line 4
+            card1 = createcard(
+                "Duitfy",
+                "./img/Duitfy.jpg",
+                "Made March 2022",
+                "Insprired by Monefy app.",
+                "https://afwanhaziq.itch.io/duitfy?secret=ZQCJvEg9hP2Jq0KuSRNpCqP8gE");
+            
+            card2 = "";
+                
+            card3 = "";
+                
+            cardgroup = cardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+            
+        </script>
 
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Formula Calculator</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/formula calculator.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Oct 2019
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://play.google.com/store/apps/details?id=io.kodular.afwanhaziq987.FormulaCalculator&hl=ms&gl=US" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <!--
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Header
-                  
-               </div>
-               <div class="card-body ">
-               <h5 class="card-title">Info card title</h5>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-               </div>
-            </div>
-            -->
-         </div>
-
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Balance It</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/BalanceIt.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Nov 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://play.google.com/store/apps/details?id=com.af1productions.balanceit" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Mudah Belajar Arab + Jawi</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/mudahBelajarArab.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Sep 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://play.google.com/store/apps/details?id=com.af1productions.mudahbelajararab" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Mari Belajar Bahasa Arab - Unity3D</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/MariBelajarArabUnity3D.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Feb 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://play.google.com/store/apps/details?id=com.af1productions.belajararab" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-         </div>
-
-
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Waktu Solat</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/WaktuSolat.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made May 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text">  </p>
-               <a href="https://afwanhaziq.itch.io/waktu-solat" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">HeadCounter System</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/HeadCounterSystem.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made March 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/headcounter-system" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">HeadCounter System - Input</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/SystemHeadcounter_Input.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made March 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="./HeadCounter_System/index.html" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <!--
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Header
-                  
-               </div>
-               <div class="card-body ">
-               <h5 class="card-title">Info card title</h5>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-               </div>
-            </div>
-            -->
-         </div>
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Duitfy</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/Duitfy.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made March 2022
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/duitfy?secret=ZQCJvEg9hP2Jq0KuSRNpCqP8gE" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-         </div>
          <br><br>
 
          <h3  id="myGamesTitle" class="title">My Games</h3>
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Starman Oddysey</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/Starman Oddysey.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made March 2018
-                  </div> 
-               </div>
-               
-               <p class="card-text">Platformer old-like Mario game to learn Chemistry subject.</p>
-               <a href="https://afwanhaziq.itch.io/starmanodyssey" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">PnC Game</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/PnC Game.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made March 2021
-                  </div> 
-               </div>
-               
-               <p class="card-text">Permutation and Combination learning game.</p>
-               <a href="https://afwanhaziq.itch.io/pnc-game" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">DIFFI - Learn Arabic and Mandarin</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/DIFFI App.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Feb 2021
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/diffi-app" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-         </div>
-         <div class="card-group">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Adventure Into Cell</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/AdventureIntoCell.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made June 2019
-                  </div> 
-               </div>
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/platformer-plant?secret=UG8IQCrK3TWEmWNC7J9EdjaiM" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
+		 <div id="mygamesdata"></div>
+		 
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "Starman Oddysey",
+                "./img/Starman Oddysey.jpg",
+                "Made March 2018",
+                "Platformer old-like Mario game to learn Chemistry subject.",
+                "https://afwanhaziq.itch.io/starmanodyssey");
+                
+            card2 = createcard(
+                "PnC Game",
+                "./img/PnC Game.jpg",
+                "Made March 2021",
+                "Permutation and Combination learning game.",
+                "https://afwanhaziq.itch.io/pnc-game");
+                
+            card3 = createcard(
+                "DIFFI - Learn Arabic and Mandarin",
+                "./img/DIFFI App.jpg",
+                "Made Feb 2021",
+                "Educational game to learn Chinese and Arabic language",
+                "https://afwanhaziq.itch.io/diffi-app");
+                
+            cardgroup = cardgroup(card1, card2, card3);
             
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Lightics Exploration</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/LighticsExploration.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made July 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/lightics-exploration" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Mathsery Island</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/Mathsery Island.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made July 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/mathsery-island" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-         </div>
-         
-         <div class="card-group">
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Fish Eat Fish 4 Players</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/FishEatFish2.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Jan 2018
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://www.construct.net/en/free-online-games/fish-eat-fish-players-4016/play" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Kereta PON PON</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/KeretaPONPON.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made Aug 2020
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/keretaponpon?secret=BIVyPjDA1DnCgHyFILsaJH62Z4o" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">MainMatik</div>
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/MainMatik.jpg" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made April 2021
-                  </div> 
-               </div>
-               
-               <p class="card-text"> </p>
-               <a href="https://afwanhaziq.itch.io/mainmatik" class="btn btn-primary">Go</a>
-               
-               </div>
-            </div>
-         </div>
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+			//line 2
+            card1 = createcard(
+                "Adventure Into Cell",
+                "./img/AdventureIntoCell.png",
+                "Made June 2019",
+                "Platformer game to learn Biology subject.",
+                "https://afwanhaziq.itch.io/platformer-plant?secret=UG8IQCrK3TWEmWNC7J9EdjaiM");
+                
+            card2 = createcard(
+                "Lightics Exploration",
+                "./img/LighticsExploration.jpg",
+                "Made July 2020",
+                "Physics of Light learning game.",
+                "https://afwanhaziq.itch.io/lightics-exploration");
+                
+            card3 = createcard(
+                "Mathsery Island",
+                "./img/Mathsery Island.jpg",
+                "Made July 2020",
+                "Educational game to learn Math",
+                "https://afwanhaziq.itch.io/mathsery-island");
+                
+            cardgroup = cardgroup(card1, card2, card3);
             
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+			//line 3
+            card1 = createcard(
+                "Fish Eat Fish 4 Players",
+                "./img/FishEatFish2.png",
+                "Made Jan 2018",
+                "",
+                "https://www.construct.net/en/free-online-games/fish-eat-fish-players-4016/play");
+                
+            card2 = createcard(
+                "Kereta PON PON",
+                "./img/KeretaPONPON.jpg",
+                "Made Aug 2020",
+                "",
+                "https://afwanhaziq.itch.io/keretaponpon?secret=BIVyPjDA1DnCgHyFILsaJH62Z4o");
+                
+            card3 = createcard(
+                "MainMatik",
+                "./img/MainMatik.jpg",
+                "Made April 2021",
+                "",
+                "https://afwanhaziq.itch.io/mainmatik");
+                
+            cardgroup = cardgroup(card1, card2, card3);
+            
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+		</script>
+		 
 
          <br><br>
 
          <h3  id="myOldGameTitle" class="title">My Old Games made with GameMaker</h3>
-         <div class="card-group" style="text-align: center;">
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">ABCD to Barcode</div>
-               
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/abcdbarcode.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made 4 Jan 2018
-                  </div> 
-               </div>
-
-               <p class="card-text">Change A B C D into barcode.</p>
-               <a href="https://c24-s60348.github.io/GameMaker/Export_HTML/ABCD%20to%20barcode" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Zuma Boss Round</div>
-               
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/zumabossround.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made 14 Jan 2018
-                  </div> 
-               </div>
-
-               <p class="card-text">Made my own game art using Adobe Illustrator and a Zuma-like boss round.</p>
-               <a href="https://c24-s60348.github.io/GameMaker/Export_HTML/Zuma%20boss%20round%202p" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-
-            <div class="card border-dark mb-3" style="max-width: 18rem;">
-               <div class="card-header">Zuma - 2 Players Test</div>
-               
-               <div class="card-body ">
-                  <div class="tooltip-wrap">
-                     <img class="card-img-top" src="./img/zuma2playerstest.png" alt="Card image cap">
-               
-                  <div class="tooltip-content">
-                     Made 8 Jan 2018
-                  </div> 
-               </div>
-
-               <p class="card-text">Made the ball move in path.</p>
-               <a href="https://c24-s60348.github.io/GameMaker/Export_HTML/Zuma%202%20players%20test" class="btn btn-primary">Go</a>
-               </div>
-            </div>
-         </div>
+		 <div id="myoldgamesdata"></div>
+		 
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "ABCD to Barcode",
+                "./img/abcdbarcode.png",
+                "Made 4 Jan 2018",
+                "Change A B C D into barcode.",
+                "https://c24-s60348.github.io/GameMaker/Export_HTML/ABCD%20to%20barcode");
+                
+            card2 = createcard(
+                "Zuma Boss Round",
+                "./img/zumabossround.png",
+                "Made 14 Jan 2018",
+                "Made my own game art using Adobe Illustrator and a Zuma-like boss round.",
+                "https://c24-s60348.github.io/GameMaker/Export_HTML/Zuma%20boss%20round%202p");
+                
+            card3 = createcard(
+                "Zuma - 2 Players Test",
+                "./img/zuma2playerstest.png",
+                "Made 8 Jan 2018",
+                "Made the ball move in path.",
+                "https://c24-s60348.github.io/GameMaker/Export_HTML/Zuma%202%20players%20test");
+                
+            cardgroup = cardgroup(card1, card2, card3);
+            
+            document.getElementById("myoldgamesdata").innerHTML += cardgroup;
+			
+			
+		</script>
 
          <br><br>
          <h2 class="title"> Random thing i do </h2>
