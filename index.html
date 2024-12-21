@@ -54,6 +54,7 @@
             padding-top:100px;
             width: 100%;
             background-color: ;
+            position: relative;
          }
          .card {
              border-radius:12px;
@@ -107,15 +108,11 @@
       </nav>
        
       <div class="main">
+          
+           <div class="center" style="text-align: center; align-items: center; display: flex; flex-direction: column; align-content: space-between; ">
 
       
-         <h3 id="myWebsitesTitle" class="title" style="position:relative;">My Websites
-         
-         <span style="position:absolute; left:10%;"></span>
-         <span style="position:absolute; right:10%;"></span>
-         </h3>
 
-         <div class="center" style="text-align: center; align-items: center; display: flex; flex-direction: column; align-content: space-between; ">
              
         <script>
             function createcard(title, img, made, desc, link)
@@ -126,7 +123,7 @@
                
                <div class="card-body ">
                   <div class="tooltip-wrap">
-                     <img class="card-img-top" src="`+img+`" alt="Card image cap">
+                     <img class="card-img-top" src="`+img+`" alt="`+title+`">
                
                   <div class="tooltip-content">
                      `+made+`
@@ -142,74 +139,162 @@
             function createcardgroup(card1, card2, card3)
             {
                 
-                return '<div class="card-group" style="justify-content:center;">' + card1 + card2 + card3 + '</div>';
+                return '<div class="card-group" style="justify-content:center;text-align:center;">' + card1 + card2 + card3 + '</div>';
             }
         </script>
         
-        <div id="mywebsitedata"></div>
-        <script>
-			var card1 = "";
-			var card2 = "";
-			var card3 = "";
-			var cardgroup = "";
-			
+        <h3 id="myWorkedOnMetech" class="title">My involved project in Me-Tech Solution Sdn Bhd.
+         <span style="position:absolute; left:10%;">💻</span>
+         <span style="position:absolute; right:10%;">💻</span>
+         </h3>
+        <div id="myworkeddata"></div>
+        
+        	 <script>
+		 
             //line 1
             card1 = createcard(
-                "Mokde App",
-                "./img/Mokde.jpg",
-                "Made July 2022",
-                "Assignment website on Semester 4 Degree in UMT.",
-                "./MokdeApp/Mokde.html");
+                "Firefly Mobile Website",
+                "./img/bookingfireflyz.png",
+                "Worked with Hoo",
+                "Revamp and maintain Firefly mobile booking website.",
+                "https://m.fireflyz.com.my");
                 
             card2 = createcard(
-                "CRUD Tutorial",
-                "./img/uWu HTML.PNG",
-                "Made 8 Jan 2021",
-                "TodoList website that i follow along tutorial on Youtube.",
-                "./CRUD Tutorial Youtube/index.html");
+                "Firefly Desktop Website",
+                "./img/mfireflyz.png",
+                "Worked with Hoo",
+                "Revamp and maintain Firefly Desktop booking website.",
+                "https://booking.fireflyz.com.my");
                 
             card3 = createcard(
-                "QR Code Generator Tutorial",
-                "./img/qrcodeGenerator.png",
-                "Made 4 Jan 2021",
-                "QR Code Generator website that i follow tutorial on Youtube",
-                "./QR Scanner3/index.html");
+                "Firefly Mobile app",
+                "./img/mobilefireflyz.png",
+                "Worked as a Backend Developer",
+                "Revamp and maintain Firefly mobile app's API",
+                "https://play.google.com/store/apps/details?id=com.metech.firefly");
                 
             cardgroup = createcardgroup(card1, card2, card3);
             
-            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            document.getElementById("myworkeddata").innerHTML += cardgroup;
             
             //line 2
             card1 = createcard(
-                "PandaMakan",
-                "./img/pandamakan.png",
-                "Made Ogos 2022",
-                "Front-End interface inspired by FoodPanda.",
-                "https://c24-s60348.github.io/individualAssignmentCordova/main.html");
+                "tripPAX App",
+                "./img/trippax.png",
+                "Worked with Fad",
+                "Worked as frontend and backend developer for trip planner app.",
+                "https://play.google.com/store/apps/details?id=com.metech.trippax");
                 
             card2 = createcard(
-                "LabTest FrontEnd Sem 4",
-                "./img/LabTestCordova.png",
-                "Made Ogos 2022",
-                "Making an app to retrieve JSON data and display the id, email, name, and so on.",
-                "https://c24-s60348.github.io/labtestFrontEnd/");
+                "Rojerbro",
+                "./img/rojerbro.png",
+                "Worked with Afiq",
+                "Worked as a backend developer for map information app.",
+                "https://play.google.com/store/apps/details?id=com.metech.rojerbroapp");
                 
             card3 = createcard(
-                "Group Assignment Web Sem 3",
-                "./img/EndangeredAnimalsWebSem3GroupProject.png",
-                "Made Feb 2022",
-                "Website to inform people about endangered species.",
-                "https://c24-s60348.github.io/S60348-SEM3-WEB/GroupProject/ourWebsite.html");
+                "Sewajer",
+                "./img/sewajer.png",
+                "Worked with Niesha",
+                "Worked as a backend developer for car renting app.",
+                "https://play.google.com/store/apps/details?id=com.me_tech.my.SewaJerAppOwner");
                 
             cardgroup = createcardgroup(card1, card2, card3);
             
-            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            document.getElementById("myworkeddata").innerHTML += cardgroup;
+					
+		</script>
+
+
+        <h3  id="myGamesTitle" class="title">My Games</h3>
+		 <div id="mygamesdata"></div>
+		 
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "Starman Oddysey",
+                "./img/Starman Oddysey.jpg",
+                "Made March 2018",
+                "Platformer old-like Mario game to learn Chemistry subject.",
+                "https://afwanhaziq.itch.io/starmanodyssey");
+                
+            card2 = createcard(
+                "PnC Game",
+                "./img/PnC Game.jpg",
+                "Made March 2021",
+                "Permutation and Combination learning game.",
+                "https://afwanhaziq.itch.io/pnc-game");
+                
+            card3 = createcard(
+                "DIFFI - Learn Arabic and Mandarin",
+                "./img/DIFFI App.jpg",
+                "Made Feb 2021",
+                "Educational game to learn Chinese and Arabic language",
+                "https://afwanhaziq.itch.io/diffi-app");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
             
-        </script>
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+			//line 2
+            card1 = createcard(
+                "Adventure Into Cell",
+                "./img/AdventureIntoCell.png",
+                "Made June 2019",
+                "Platformer game to learn Biology subject.",
+                "https://afwanhaziq.itch.io/platformer-plant?secret=UG8IQCrK3TWEmWNC7J9EdjaiM");
+                
+            card2 = createcard(
+                "Lightics Exploration",
+                "./img/LighticsExploration.jpg",
+                "Made July 2020",
+                "Physics of Light learning game.",
+                "https://afwanhaziq.itch.io/lightics-exploration");
+                
+            card3 = createcard(
+                "Mathsery Island",
+                "./img/Mathsery Island.jpg",
+                "Made July 2020",
+                "Educational game to learn Math",
+                "https://afwanhaziq.itch.io/mathsery-island");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+			//line 3
+            card1 = createcard(
+                "Fish Eat Fish 4 Players",
+                "./img/FishEatFish2.png",
+                "Made Jan 2018",
+                "",
+                "https://www.construct.net/en/free-online-games/fish-eat-fish-players-4016/play");
+                
+            card2 = createcard(
+                "MainMatik",
+                "./img/MainMatik.jpg",
+                "Made April 2021",
+                "",
+                "https://afwanhaziq.itch.io/mainmatik");
+            
+            card3 = "";
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+		</script>
+		 
 
          <br><br>
 
-         <h3 id="myAppsTitle" class="title">My Apps</h3>
+         <h3 id="myAppsTitle" class="title">My Apps
+          
+          <span style="position:absolute; left:10%;">📱</span>
+         <span style="position:absolute; right:10%;">📱</span>
+         </h3>
+        
 		 
 		 <div id="myappsdata"></div>
 		 <script>
@@ -312,91 +397,76 @@
 
          <br><br>
 
-         <h3  id="myGamesTitle" class="title">My Games</h3>
-		 <div id="mygamesdata"></div>
-		 
-		 <script>
-		 
+     
+         
+        <h3 id="myWebsitesTitle" class="title">My Project Websites
+         
+         <span style="position:absolute; left:10%;">🌐</span>
+         <span style="position:absolute; right:10%;">🌐</span>
+         </h3>
+
+        
+        
+        <div id="mywebsitedata"></div>
+        <script>
+			var card1 = "";
+			var card2 = "";
+			var card3 = "";
+			var cardgroup = "";
+			
             //line 1
             card1 = createcard(
-                "Starman Oddysey",
-                "./img/Starman Oddysey.jpg",
-                "Made March 2018",
-                "Platformer old-like Mario game to learn Chemistry subject.",
-                "https://afwanhaziq.itch.io/starmanodyssey");
+                "Mokde App",
+                "./img/Mokde.jpg",
+                "Made July 2022",
+                "Assignment website on Semester 4 Degree in UMT.",
+                "./MokdeApp/Mokde.html");
                 
             card2 = createcard(
-                "PnC Game",
-                "./img/PnC Game.jpg",
-                "Made March 2021",
-                "Permutation and Combination learning game.",
-                "https://afwanhaziq.itch.io/pnc-game");
+                "CRUD Tutorial",
+                "./img/uWu HTML.PNG",
+                "Made 8 Jan 2021",
+                "TodoList website that i follow along tutorial on Youtube.",
+                "./CRUD Tutorial Youtube/index.html");
                 
             card3 = createcard(
-                "DIFFI - Learn Arabic and Mandarin",
-                "./img/DIFFI App.jpg",
-                "Made Feb 2021",
-                "Educational game to learn Chinese and Arabic language",
-                "https://afwanhaziq.itch.io/diffi-app");
+                "QR Code Generator Tutorial",
+                "./img/qrcodeGenerator.png",
+                "Made 4 Jan 2021",
+                "QR Code Generator website that i follow tutorial on Youtube",
+                "./QR Scanner3/index.html");
                 
             cardgroup = createcardgroup(card1, card2, card3);
             
-            document.getElementById("mygamesdata").innerHTML += cardgroup;
-			
-			//line 2
+            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            
+            //line 2
             card1 = createcard(
-                "Adventure Into Cell",
-                "./img/AdventureIntoCell.png",
-                "Made June 2019",
-                "Platformer game to learn Biology subject.",
-                "https://afwanhaziq.itch.io/platformer-plant?secret=UG8IQCrK3TWEmWNC7J9EdjaiM");
+                "PandaMakan",
+                "./img/pandamakan.png",
+                "Made Ogos 2022",
+                "Front-End interface inspired by FoodPanda.",
+                "https://c24-s60348.github.io/individualAssignmentCordova/main.html");
                 
             card2 = createcard(
-                "Lightics Exploration",
-                "./img/LighticsExploration.jpg",
-                "Made July 2020",
-                "Physics of Light learning game.",
-                "https://afwanhaziq.itch.io/lightics-exploration");
+                "LabTest FrontEnd Sem 4",
+                "./img/LabTestCordova.png",
+                "Made Ogos 2022",
+                "Making an app to retrieve JSON data and display the id, email, name, and so on.",
+                "https://c24-s60348.github.io/labtestFrontEnd/");
                 
             card3 = createcard(
-                "Mathsery Island",
-                "./img/Mathsery Island.jpg",
-                "Made July 2020",
-                "Educational game to learn Math",
-                "https://afwanhaziq.itch.io/mathsery-island");
+                "Group Assignment Web Sem 3",
+                "./img/EndangeredAnimalsWebSem3GroupProject.png",
+                "Made Feb 2022",
+                "Website to inform people about endangered species.",
+                "https://c24-s60348.github.io/S60348-SEM3-WEB/GroupProject/ourWebsite.html");
                 
             cardgroup = createcardgroup(card1, card2, card3);
             
-            document.getElementById("mygamesdata").innerHTML += cardgroup;
-			
-			//line 3
-            card1 = createcard(
-                "Fish Eat Fish 4 Players",
-                "./img/FishEatFish2.png",
-                "Made Jan 2018",
-                "",
-                "https://www.construct.net/en/free-online-games/fish-eat-fish-players-4016/play");
-                
-            card2 = createcard(
-                "Kereta PON PON",
-                "./img/KeretaPONPON.jpg",
-                "Made Aug 2020",
-                "",
-                "https://afwanhaziq.itch.io/keretaponpon?secret=BIVyPjDA1DnCgHyFILsaJH62Z4o");
-                
-            card3 = createcard(
-                "MainMatik",
-                "./img/MainMatik.jpg",
-                "Made April 2021",
-                "",
-                "https://afwanhaziq.itch.io/mainmatik");
-                
-            cardgroup = createcardgroup(card1, card2, card3);
+            document.getElementById("mywebsitedata").innerHTML += cardgroup;
             
-            document.getElementById("mygamesdata").innerHTML += cardgroup;
-			
-		</script>
-		 
+        </script>
 
          <br><br>
 
