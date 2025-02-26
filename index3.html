@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afwan's Portfolio</title>
+    
+    <!-- Bootstrap & Google Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        
+        /* Navbar */
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Titles */
+        h3 {
+            margin-top: 40px;
+            font-weight: 600;
+            color: #343a40;
+        }
+
+        /* Card Styling */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <a class="navbar-brand font-weight-bold">Afwan's Portfolio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#myWebsitesTitle">My Websites</a></li>
+                <li class="nav-item"><a class="nav-link" href="#myAppsTitle">My Apps</a></li>
+                <li class="nav-item"><a class="nav-link" href="#myGamesTitle">My Games</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mt-4">
+        <h3 id="myWorkedOnMetech">My Projects at Me-Tech Solution</h3>
+        <div class="row" id="myworkeddata"></div>
+
+        <h3 id="myGamesTitle">My Games</h3>
+        <div class="row" id="mygamesdata"></div>
+
+        <h3 id="myAppsTitle">My Apps</h3>
+        <div class="row" id="myappsdata"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function createCard(title, img, made, desc, link) {
+                return `
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="${img}" alt="${title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${title}</h5>
+                                <p class="card-text"><small>${made}</small></p>
+                                <p class="card-text">${desc}</p>
+                                <a href="${link}" class="btn btn-primary">Visit</a>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+
+            function populateSection(sectionId, data) {
+                let container = document.getElementById(sectionId);
+                if (!container) return;
+                container.innerHTML = data.map(item => createCard(...item)).join('');
+            }
+
+            const workedProjects = [
+                ["Firefly Mobile Website", "./img/mfireflyz.png", "Fullstack Developer", "Revamp and maintain Firefly mobile booking website.", "https://m.fireflyz.com.my"],
+                ["Firefly Desktop Website", "./img/bookingfireflyz.png", "Fullstack Developer", "Revamp and maintain Firefly Desktop booking website.", "https://booking.fireflyz.com.my"],
+                ["Firefly Mobile App", "./img/mobilefireflyz.png", "Backend Developer", "Revamp and maintain Firefly mobile app's API", "https://play.google.com/store/apps/details?id=com.metech.firefly"]
+            ];
+
+            const games = [
+                ["Starman Odyssey", "./img/Starman Oddysey.jpg", "March 2018", "A Mario-style platformer for learning Chemistry.", "https://afwanhaziq.itch.io/starmanodyssey"],
+                ["PnC Game", "./img/PnC Game.jpg", "March 2021", "A game for learning Permutation and Combination.", "https://afwanhaziq.itch.io/pnc-game"],
+                ["DIFFI", "./img/DIFFI App.jpg", "Feb 2021", "Educational game to learn Chinese and Arabic.", "https://afwanhaziq.itch.io/diffi-app"]
+            ];
+
+            const apps = [
+                ["Hadis 40 Imam Nawawi", "./img/hadis40.png", "Dec 2019", "Book app for Hadis 40 Imam Nawawi.", "https://play.google.com/store/apps/details?id=com.af1gaming.hadis40"],
+                ["Celik Tafsir", "./img/celiktafsir.png", "July 2020", "Book app for Celik Tafsir.", "https://play.google.com/store/apps/details?id=com.af1productions.celiktafsir"],
+                ["Formula Calculator", "./img/formula calculator.png", "Oct 2019", "A formula calculator app.", "https://play.google.com/store/apps/details?id=io.kodular.afwanhaziq987.FormulaCalculator"]
+            ];
+
+            populateSection("myworkeddata", workedProjects);
+            populateSection("mygamesdata", games);
+            populateSection("myappsdata", apps);
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>Afwan Haziq bin Hairollkahar</p>
+        <p>Email: afwanhaziq987@gmail.com</p>
+    </footer>
+</body>
+</html>
