@@ -1,7 +1,8 @@
 import urllib.request #url getter
 import re #get from pattern
+import os
 from bs4 import BeautifulSoup
-from datetime import date
+from datetime import datetime
 
 isProd = True
 
@@ -31,7 +32,7 @@ nums = re.findall(r'href="(.+?)"', decoded_ss)
 #print(nums[0])
 
 #Date
-today = date.today().strftime("%Y%m%d-%H%M")
+today = datetime.today().strftime("%Y%m%d-%H%M")
 
 #get all link and store it inside .txt file
 if False :
@@ -79,8 +80,12 @@ for link in nums:
 
 #create file
 filename = "output python/output" + today + ".txt"
-with open(filename, "a") as f:
+os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+with open(filename, "w") as f:
   print(txt, file=f)
-  
+
+print(f"Successfully created file {filename}")
+
 exit()
 
