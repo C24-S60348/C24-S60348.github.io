@@ -73,10 +73,12 @@ for link in nums:
     for f in pages:
         txt += (f + " ")
     
-    #remove last space
-    txt = txt[:-1]
-    #add newline foreach surah
-    txt += ";\n"
+    #albaqarah ada 3 part
+    if (not (link == 'https://celiktafsir.net/surah-002-al-baqarah/' or link == 'https://celiktafsir.net/surah-002-bahagian-2/')):
+        #remove last space
+        txt = txt[:-1]
+        #add newline foreach surah
+        txt += ";\n"
 
 #remove last space
 # txt = txt[:-1]
