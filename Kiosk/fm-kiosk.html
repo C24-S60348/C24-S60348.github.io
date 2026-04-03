@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>FamilyMart Mini — Virtual Kiosk</title>
+<style>
+/* ── Reset ── */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;background:#111;overflow:hidden;
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+
+/* ════════════════════════════════════
+   FIXED CANVAS  540 × 720  (3:4)
+   JS letterbox-scales it to fit any
+   screen / orientation.
+════════════════════════════════════ */
+#app{
+  position:absolute;
+  width:540px; height:720px;
+  overflow:hidden;
+  background:#f5f5f0;
+  transform-origin:top left;
+}
+
+/* ════════════════════════════════════
+   SHARED ELEMENTS
+════════════════════════════════════ */
+.screen{position:absolute;inset:0;display:none;flex-direction:column;}
+.screen.active{display:flex;}
+
+/* green header bar */
+.kiosk-header{
+  background:linear-gradient(135deg,#00a651,#007d3f);
+  color:white;padding:10px 14px 8px;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  flex-shrink:0;
+}
+.kiosk-header .logo{font-size:1.15rem;font-weight:900;letter-spacing:-.5px;}
+.kiosk-header .logo span{color:#ffe600;}
+.kiosk-header .sub{font-size:.62rem;opacity:.85;margin-top:1px;}
+.kiosk-header .machine-id{
+  margin-left:auto;font-size:.55rem;
+  background:rgba(0,0,0,.2);border-radius:4px;
+  padding:2px 6px;letter-spacing:.5px;
+}
+
+/* overlay backdrop */
+.overlay{
+  display:none;position:absolute;inset:0;z-index:800;
+  background:rgba(0,0,0,.55);
+  align-items:center;justify-content:center;
+}
+.overlay.show{display:flex;}
+
+/* modal card */
+.modal-card{
+  background:#fff;border-radius:18px;width:320px;
+  box-shadow:0 16px 48px rgba(0,0,0,.35);
+  overflow:hidden;
+  animation:slideUp .22s ease;
+}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.modal-body{padding:24px 20px 18px;text-align:center;}
+.modal-icon{font-size:2.4rem;margin-bottom:10px;}
+.modal-title{font-size:.95rem;font-weight:700;color:#1a1a1a;margin-bottom:6px;}
+.modal-desc{font-size:.75rem;color:#666;line-height:1.5;}
+.modal-footer{
+  display:flex;border-top:1px solid #eee;
+}
+.modal-footer button{
+  flex:1;padding:14px;border:none;background:transparent;
+  font-size:.8rem;font-weight:600;cursor:pointer;
+  transition:background .15s;
+}
+.modal-footer button:hover{background:#f5f5f5;}
+.modal-footer button.primary{color:#00a651;}
+.modal-footer button+button{border-left:1px solid #eee;}
+
+/* ────────────────
+   PRODUCT CHIPS
+──────────────────*/
+.product-chip{
+  display:flex;align-items:center;gap:10px;
+  background:#fff;border:1.5px solid #e8e8e8;
+  border-radius:10px;padding:9px 11px;
+  cursor:pointer;transition:all .15s;
+}
+.product-chip:hover{border-color:#00a651;background:#f0faf4;}
+.product-chip .chip-img{
+  width:46px;height:46px;object-fit:contain;
+  background:#f8f8f8;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+}
+.product-chip .chip-info{flex:1;min-width:0;}
+.product-chip .chip-name{font-size:.72rem;font-weight:600;color:#222;line-height:1.3;}
+.product-chip .chip-slot{font-size:.6rem;color:#888;margin-top:1px;}
+.product-chip .chip-price{font-size:.78rem;font-weight:700;color:#00a651;white-space:nowrap;}
+
+/* qty badge */
+.qty-badge{
+  background:#e74c3c;color:#fff;border-radius:50%;
+  width:18px;height:18px;font-size:.6rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* green btn */
+.btn-green{
+  background:linear-gradient(135deg,#00a651,#007d3f);
+  color:#fff;border:none;border-radius:10px;
+  font-size:.82rem;font-weight:700;cursor:pointer;
+  padding:13px 20px;transition:all .15s;
+  box-shadow:0 3px 10px rgba(0,166,81,.3);
+}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn-green:active{transform:translateY(0);}
+.btn-green:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;}
+
+/* grey btn */
+.btn-grey{
+  background:#f0f0f0;color:#333;border:none;border-radius:10px;
+  font-size:.8rem;font-weight:600;cursor:pointer;
+  padding:13px 20px;transition:background .15s;
+}
+.btn-grey:hover{background:#e0e0e0;}
+
+/* ════════════════════════════════════
+   SCREEN 1 — MENU / BROWSE
+════════════════════════════════════ */
+#screen-menu{background:#f5f5f0;}
+.menu-hero{
+  display:flex;gap:8px;padding:10px 12px 8px;
+  background:linear-gradient(135deg,#00a651,#007d3f);
+  flex-shrink:0;
+}
+.hero-item{
+  flex:1;background:rgba(255,255,255,.15);border-radius:10px;
+  padding:8px;cursor:pointer;transition:background .15s;
+}
+.hero-item:hover{background:rgba(255,255,255,.28);}
+.hero-img{
+  width:100%;aspect-ratio:4/3;border-radius:7px;
+  background:#fff;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;font-size:2rem;
+}
+.hero-name{font-size:.62rem;font-weight:700;color:#fff;margin-top:5px;line-height:1.2;}
+.hero-price{font-size:.7rem;color:#ffe600;font-weight:800;}
+.hero-slot{
+  display:inline-block;background:#fff;color:#00a651;
+  border-radius:4px;padding:1px 5px;font-size:.6rem;font-weight:700;
+  margin-top:2px;
+}
+
+.section-label-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px 4px;
+  font-size:.68rem;font-weight:700;color:#444;letter-spacing:.5px;text-transform:uppercase;
+  flex-shrink:0;
+}
+.item-count{
+  background:#00a651;color:#fff;border-radius:12px;
+  padding:2px 7px;font-size:.58rem;
+}
+
+.product-list{
+  flex:1;overflow-y:auto;padding:4px 12px 8px;
+  display:flex;flex-direction:column;gap:7px;
+}
+.product-list::-webkit-scrollbar{width:4px;}
+.product-list::-webkit-scrollbar-thumb{background:#ddd;border-radius:2px;}
+
+.out-badge{
+  font-size:.58rem;background:#e74c3c;color:#fff;
+  border-radius:4px;padding:1px 5px;white-space:nowrap;
+}
+
+/* floating cart bar */
+#cart-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(135deg,#00a651,#007d3f);
+  color:#fff;padding:12px 16px;
+  display:none;align-items:center;justify-content:space-between;
+  box-shadow:0 -4px 16px rgba(0,0,0,.2);z-index:100;
+  cursor:pointer;transition:filter .15s;
+}
+#cart-bar:hover{filter:brightness(1.07);}
+#cart-bar.visible{display:flex;}
+.cart-bar-left{display:flex;align-items:center;gap:8px;}
+.cart-count-bubble{
+  background:#fff;color:#00a651;border-radius:50%;
+  width:24px;height:24px;font-size:.68rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.cart-bar-label{font-size:.78rem;font-weight:700;}
+.cart-bar-total{font-size:.88rem;font-weight:800;}
+
+/* ════════════════════════════════════
+   SCREEN 2 — CART REVIEW
+════════════════════════════════════ */
+#screen-cart{background:#f5f5f0;}
+.cart-list{
+  flex:1;overflow-y:auto;padding:10px 12px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.cart-item{
+  background:#fff;border-radius:12px;padding:12px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.cart-item-emoji{font-size:1.6rem;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:.72rem;font-weight:600;color:#222;line-height:1.3;}
+.cart-item-slot{font-size:.6rem;color:#888;}
+.cart-item-price{font-size:.78rem;font-weight:700;color:#00a651;white-space:nowrap;}
+.btn-remove{
+  background:none;border:none;color:#ccc;font-size:1rem;
+  cursor:pointer;padding:4px;border-radius:6px;
+  transition:color .15s, background .15s;
+}
+.btn-remove:hover{color:#e74c3c;background:#fff0f0;}
+
+.cart-summary{
+  padding:10px 16px 12px;background:#fff;
+  border-top:1px solid #eee;flex-shrink:0;
+}
+.summary-row{
+  display:flex;justify-content:space-between;
+  font-size:.75rem;color:#555;margin-bottom:5px;
+}
+.summary-row.total{
+  font-size:.9rem;font-weight:800;color:#1a1a1a;
+  border-top:1px solid #eee;padding-top:8px;margin-top:4px;
+}
+.summary-row .price{color:#00a651;}
+.cart-actions{
+  padding:10px 12px 12px;display:flex;gap:8px;flex-shrink:0;
+}
+
+/* ════════════════════════════════════
+   SCREEN 3 — PAYMENT METHOD
+════════════════════════════════════ */
+#screen-payment{background:#f5f5f0;}
+.pay-amount-bar{
+  background:#fff;padding:12px 16px;
+  border-bottom:1px solid #eee;flex-shrink:0;
+}
+.pay-amount-bar .label{font-size:.68rem;color:#888;}
+.pay-amount-bar .amount{font-size:1.4rem;font-weight:800;color:#00a651;}
+
+.pay-methods{
+  flex:1;padding:12px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+  align-content:start;
+}
+.pay-method{
+  background:#fff;border:2px solid #e8e8e8;border-radius:12px;
+  padding:14px 8px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  transition:all .15s;
+}
+.pay-method:hover{border-color:#00a651;background:#f0faf4;}
+.pay-method.selected{border-color:#00a651;background:#e8f7ef;}
+.pay-method .pm-icon{font-size:1.6rem;}
+.pay-method .pm-name{font-size:.6rem;font-weight:600;color:#333;text-align:center;line-height:1.2;}
+
+/* ════════════════════════════════════
+   SCREEN 4 — PENDING / SCANNING
+════════════════════════════════════ */
+#screen-pending{background:#f5f5f0;}
+.pending-body{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;gap:16px;
+}
+.pending-card{
+  background:#fff;border-radius:18px;padding:28px 24px;
+  text-align:center;width:100%;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.scanner-anim{
+  width:80px;height:80px;margin:0 auto 12px;
+  border:3px solid #00a651;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;position:relative;
+  animation:scanPulse 1.2s ease-in-out infinite;
+}
+@keyframes scanPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,166,81,.4);}
+  50%{box-shadow:0 0 0 12px rgba(0,166,81,0);}
+}
+.scan-line{
+  position:absolute;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,#00a651,transparent);
+  top:50%;animation:scanLine 1.5s linear infinite;
+}
+@keyframes scanLine{from{top:10%}to{top:90%}}
+.pending-title{font-size:.9rem;font-weight:700;color:#1a1a1a;margin-bottom:6px;}
+.pending-desc{font-size:.72rem;color:#666;line-height:1.5;}
+.btn-cancel-pay{
+  background:#f0f0f0;color:#555;border:none;border-radius:10px;
+  padding:10px 28px;font-size:.78rem;font-weight:600;cursor:pointer;
+  margin-top:4px;
+}
+.btn-cancel-pay:hover{background:#e0e0e0;}
+
+/* ════════════════════════════════════
+   SCREEN 5 — DISPENSING
+════════════════════════════════════ */
+#screen-dispensing{background:#f5f5f0;}
+.dispense-body{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:20px;gap:14px;
+}
+.dispense-card{
+  background:#fff;border-radius:18px;padding:24px 20px;
+  text-align:center;width:100%;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.dispense-progress{
+  width:100%;background:#eee;border-radius:99px;
+  height:8px;margin:14px 0 8px;overflow:hidden;
+}
+.dispense-bar{
+  height:100%;background:linear-gradient(90deg,#00a651,#2ecc71);
+  border-radius:99px;transition:width .8s ease;
+}
+.dispense-icon{font-size:2.5rem;animation:dropIn .5s ease;}
+@keyframes dropIn{from{transform:translateY(-10px);opacity:0}to{transform:translateY(0);opacity:1}}
+.expiry-warning{
+  background:#fff8e1;border:1px solid #ffc107;border-radius:10px;
+  padding:10px 14px;font-size:.68rem;color:#b8860b;line-height:1.5;
+  text-align:center;width:100%;
+}
+.expiry-warning strong{color:#e65100;display:block;margin-bottom:3px;}
+
+/* ════════════════════════════════════
+   SCREEN 6 — SUCCESS / DONE
+════════════════════════════════════ */
+#screen-success{background:linear-gradient(135deg,#e8f7ef,#f5f5f0);}
+.success-body{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:20px;gap:14px;
+}
+.success-tick{
+  width:70px;height:70px;background:linear-gradient(135deg,#00a651,#2ecc71);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:2rem;color:#fff;
+  animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);
+}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+.success-title{font-size:1.1rem;font-weight:800;color:#1a1a1a;text-align:center;}
+.success-sub{font-size:.72rem;color:#666;text-align:center;line-height:1.5;}
+.success-stats{
+  background:#fff;border-radius:14px;padding:14px 18px;width:100%;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.stat-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:5px 0;font-size:.73rem;
+  border-bottom:1px solid #f0f0f0;
+}
+.stat-row:last-child{border-bottom:none;}
+.stat-row .k{color:#888;}
+.stat-row .v{font-weight:700;color:#1a1a1a;}
+
+/* ── receipt QR placeholder ── */
+.receipt-qr{
+  background:#fff;border-radius:14px;padding:16px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);width:100%;
+}
+.qr-placeholder{
+  width:90px;height:90px;
+  background:repeating-conic-gradient(#00a651 0% 25%, transparent 0% 50%) 0/12px 12px;
+  border-radius:6px;
+}
+.receipt-qr p{font-size:.65rem;color:#888;text-align:center;}
+
+/* ════════════════════════════════════
+   MEMBERSHIP PROMPT overlay
+════════════════════════════════════ */
+#overlay-membership .modal-body{text-align:center;}
+
+/* ════════════════════════════════════
+   PDPA notice
+════════════════════════════════════ */
+.pdpa-notice{
+  background:#e8f0fb;border-left:3px solid #3498db;
+  padding:8px 12px;font-size:.6rem;color:#3552a0;line-height:1.5;
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.pdpa-qr-mini{
+  width:36px;height:36px;flex-shrink:0;
+  background:repeating-conic-gradient(#3498db 0% 25%, transparent 0% 50%) 0/6px 6px;
+  border-radius:3px;
+}
+
+/* ════════════════════════════════════
+   FULLSCREEN BTN
+════════════════════════════════════ */
+#btn-fs{
+  position:absolute;bottom:6px;right:6px;z-index:9999;
+  background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.3);
+  color:#fff;border-radius:50%;width:22px;height:22px;
+  font-size:.65rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<button id="btn-fs" onclick="toggleFS()" title="Fullscreen">⛶</button>
+
+<!-- ═══════════════════════════════
+     SCREEN 1 — BROWSE MENU
+═══════════════════════════════ -->
+<div id="screen-menu" class="screen active">
+  <div class="kiosk-header">
+    <div>
+      <div class="logo"><span>Family</span>Mart Mini</div>
+      <div class="sub">Self-Service Kiosk</div>
+    </div>
+    <div class="machine-id">ID: M0014 | V1.2.2e</div>
+  </div>
+
+  <!-- hero featured items (slides) -->
+  <div class="menu-hero">
+    <div class="hero-item" onclick="addFromHero('F3')">
+      <div class="hero-img">🌯</div>
+      <div class="hero-name">Alfredo Chicken Wrap</div>
+      <div class="hero-price">RM 9.35</div>
+      <div class="hero-slot">F3</div>
+    </div>
+    <div class="hero-item" onclick="addFromHero('F4')">
+      <div class="hero-img">🍫</div>
+      <div class="hero-name">Triple Choc Choux Cream</div>
+      <div class="hero-price">RM 5.45</div>
+      <div class="hero-slot">F4</div>
+    </div>
+  </div>
+
+  <div class="section-label-bar">
+    <span>📋 Menu</span>
+    <span id="lang-tag" style="font-size:.65rem;color:#00a651;font-weight:700;cursor:pointer;" onclick="alert('Language: English')">🌐 English</span>
+  </div>
+
+  <div class="product-list" id="product-list">
+    <!-- filled by JS -->
+  </div>
+
+  <div id="cart-bar" onclick="goTo('screen-cart')">
+    <div class="cart-bar-left">
+      <div class="cart-count-bubble" id="cart-count">0</div>
+      <div class="cart-bar-label">View Cart</div>
+    </div>
+    <div class="cart-bar-total" id="cart-total">RM 0.00</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 2 — CART
+═══════════════════════════════ -->
+<div id="screen-cart" class="screen">
+  <div class="kiosk-header">
+    <button onclick="goTo('screen-menu')" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;margin-right:4px;">←</button>
+    <div>
+      <div class="logo"><span>Family</span>Mart Mini</div>
+      <div class="sub">Your Order</div>
+    </div>
+  </div>
+  <div class="cart-list" id="cart-list"></div>
+  <div class="cart-summary">
+    <div class="summary-row"><span>Subtotal</span><span class="price" id="summary-sub">RM 0.00</span></div>
+    <div class="summary-row total"><span>Total</span><span class="price" id="summary-total">RM 0.00</span></div>
+  </div>
+  <div class="cart-actions">
+    <button class="btn-grey" style="flex:1" onclick="goTo('screen-menu')">+ Add More</button>
+    <button class="btn-green" style="flex:2" id="btn-checkout" onclick="proceedToPayment()">Checkout →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 3 — PAYMENT METHOD
+═══════════════════════════════ -->
+<div id="screen-payment" class="screen">
+  <div class="kiosk-header">
+    <button onclick="goTo('screen-cart')" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;margin-right:4px;">←</button>
+    <div>
+      <div class="logo"><span>Family</span>Mart Mini</div>
+      <div class="sub">Payment</div>
+    </div>
+  </div>
+  <div class="pdpa-notice">
+    <div class="pdpa-qr-mini"></div>
+    <span>Scan QR to view our PDPA Policy on how we process your personal information.</span>
+  </div>
+  <div class="pay-amount-bar">
+    <div class="label">Payment Amount</div>
+    <div class="amount" id="pay-amount">RM 0.00</div>
+  </div>
+  <div class="pay-methods">
+    <div class="pay-method" onclick="selectPayMethod(this,'card')">
+      <div class="pm-icon">💳</div>
+      <div class="pm-name">Credit / Debit Card</div>
+    </div>
+    <div class="pay-method" onclick="selectPayMethod(this,'grabpay')">
+      <div class="pm-icon" style="color:#00b14f;font-size:1.1rem;font-weight:900;">Grab<br>Pay</div>
+      <div class="pm-name">Grab Pay</div>
+    </div>
+    <div class="pay-method" onclick="selectPayMethod(this,'tng')">
+      <div class="pm-icon">🔵</div>
+      <div class="pm-name">TnG Pay</div>
+    </div>
+    <div class="pay-method" onclick="selectPayMethod(this,'boost')">
+      <div class="pm-icon" style="color:#e31937;font-weight:900;font-size:.9rem;">boost</div>
+      <div class="pm-name">Boost Pay</div>
+    </div>
+    <div class="pay-method" onclick="selectPayMethod(this,'maybank')">
+      <div class="pm-icon" style="font-size:.75rem;font-weight:900;color:#f26522;line-height:1.2;">Maybank<br>QR</div>
+      <div class="pm-name">Maybank QR</div>
+    </div>
+  </div>
+  <div style="padding:0 12px 12px;">
+    <button class="btn-green" style="width:100%" id="btn-paynow" onclick="doPayNow()" disabled>Pay Now</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 4 — PENDING SCAN
+═══════════════════════════════ -->
+<div id="screen-pending" class="screen">
+  <div class="kiosk-header">
+    <div>
+      <div class="logo"><span>Family</span>Mart Mini</div>
+      <div class="sub">Awaiting Payment</div>
+    </div>
+    <div class="machine-id" id="pending-method-label">—</div>
+  </div>
+  <div class="pay-amount-bar" style="border-bottom:1px solid #eee;padding:10px 16px;background:#fff;flex-shrink:0;">
+    <div class="label">Payment</div>
+    <div class="amount" id="pending-amount">RM 0.00</div>
+  </div>
+  <div class="pending-body">
+    <div class="pending-card">
+      <div class="scanner-anim">📱<div class="scan-line"></div></div>
+      <div class="pending-title">Pending Payment…</div>
+      <div class="pending-desc">Show the QR code from your phone to the scanner below until you hear a "beep" sound.</div>
+      <button class="btn-cancel-pay" onclick="cancelPayment()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 5 — DISPENSING
+═══════════════════════════════ -->
+<div id="screen-dispensing" class="screen">
+  <div class="kiosk-header">
+    <div>
+      <div class="logo"><span>Family</span>Mart Mini</div>
+      <div class="sub">Payment Successful</div>
+    </div>
+  </div>
+  <div class="dispense-body">
+    <div class="dispense-card">
+      <div class="dispense-icon" id="dispense-icon">🎉</div>
+      <div style="font-size:.85rem;font-weight:700;color:#00a651;margin:6px 0 2px;">Payment Successful. Dispensing Item.</div>
+      <div style="font-size:.7rem;color:#888;" id="dispense-item-label">Item 1 / 1</div>
+      <div class="dispense-progress"><div class="dispense-bar" id="dispense-bar" style="width:10%"></div></div>
+      <div style="font-size:.68rem;color:#555;">Kindly collect your item before continuing.</div>
+    </div>
+    <div class="expiry-warning">
+      <strong>⚠️ PLEASE CHECK YOUR EXPIRY</strong>
+      If you receive an expired item, scan the QR Code (below payment terminal) to provide feedback for a refund.
+    </div>
+    <button class="btn-green" id="btn-dispense-confirm" onclick="dispenseConfirm()" style="width:100%;display:none;">Confirm Item Collected</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 6 — SUCCESS
+═══════════════════════════════ -->
+<div id="screen-success" class="screen">
+  <div class="kiosk-header">
+    <div>
+      <div class="logo"><span>Family</span>Mart Mini</div>
+      <div class="sub">Transaction Complete</div>
+    </div>
+  </div>
+  <div class="success-body">
+    <div class="success-tick">✓</div>
+    <div class="success-title">Transaction Completed!</div>
+    <div class="success-sub">Successful purchase: <span id="success-count">1/1</span></div>
+    <div class="success-stats" id="success-stats"></div>
+    <div class="expiry-warning" style="font-size:.63rem;">
+      <strong>⚠️ PLEASE CHECK YOUR EXPIRY</strong>
+      Scan the QR Code (below payment terminal) to provide feedback for a refund if expired.
+    </div>
+    <div style="display:flex;gap:8px;width:100%;">
+      <button class="btn-green" style="flex:1;background:linear-gradient(135deg,#3498db,#2980b9);" onclick="generateEReceipt()">📄 E-Receipt</button>
+      <button class="btn-green" style="flex:1;" onclick="resetKiosk()">✓ Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     OVERLAYS
+═══════════════════════════════ -->
+
+<!-- Add-more modal -->
+<div class="overlay" id="overlay-addmore">
+  <div class="modal-card">
+    <div class="modal-body">
+      <div class="modal-icon">🛍️</div>
+      <div class="modal-title">Add more items?</div>
+      <div class="modal-desc" id="addmore-desc">(5 more item(s) can be added)</div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeOverlay('overlay-addmore');goTo('screen-menu')">Yes</button>
+      <button class="primary" onclick="closeOverlay('overlay-addmore');goTo('screen-payment')">No, Pay Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Membership modal -->
+<div class="overlay" id="overlay-membership">
+  <div class="modal-card">
+    <div class="modal-body">
+      <div class="modal-icon">📲</div>
+      <div class="modal-title">Collect FamilyMart Points?</div>
+      <div class="modal-desc">Scan your FamilyMart membership QR code for points collection.</div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="skipMembership()">No, Proceed</button>
+      <button class="primary" onclick="fakeScanMembership()">Yes, Scan now</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+// ════════════════════════════════════════
+//  VIEWPORT SCALER — same pattern as
+//  block-puzzle (fixed canvas, letterbox)
+//  APP: 540 × 720 = 3:4 portrait
+// ════════════════════════════════════════
+const APP_W = 540, APP_H = 720;
+const appEl = document.getElementById('app');
+
+function scaleApp() {
+  const winW  = window.innerWidth;
+  const winH  = window.innerHeight;
+  const scale = Math.min(winW / APP_W, winH / APP_H);
+  const left  = Math.floor((winW - APP_W * scale) / 2);
+  const top   = Math.floor((winH - APP_H * scale) / 2);
+  appEl.style.transform = `scale(${scale})`;
+  appEl.style.left = left + 'px';
+  appEl.style.top  = top  + 'px';
+}
+scaleApp();
+window.addEventListener('resize', scaleApp);
+window.addEventListener('orientationchange', () => setTimeout(scaleApp, 200));
+
+function toggleFS() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+
+// ════════════════════════════════════════
+//  CATALOGUE DATA
+// ════════════════════════════════════════
+const CATALOGUE = [
+  // Onigiri
+  { slot:'J1', name:'Grilled Salmon Onigiri',           emoji:'🍙', price:5.15, category:'Onigiri', outOfStock:false },
+  { slot:'J2', name:'Chuka Iidako Onigiri',             emoji:'🍙', price:4.90, category:'Onigiri', outOfStock:true  },
+  { slot:'J3', name:'Tobiko Mayo Onigiri',              emoji:'🍙', price:4.90, category:'Onigiri', outOfStock:true  },
+  { slot:'J4', name:'Salmon Tobiko Mayo Onigiri',       emoji:'🍙', price:5.20, category:'Onigiri', outOfStock:true  },
+  { slot:'J5', name:'Crabstick Mayo Onigiri',           emoji:'🍙', price:4.90, category:'Onigiri', outOfStock:true  },
+  // Snacks
+  { slot:'K1', name:'Amos 4D Gummy Blocks 72g',         emoji:'🍬', price:7.50, category:'Snacks',  outOfStock:false },
+  { slot:'K2', name:'Yupi Yogurt Gummy Mixed Berries 35g',emoji:'🍭',price:4.50,category:'Snacks',  outOfStock:true  },
+  { slot:'K3', name:'Bourbon Alfort Mini Chocolate 12pcs',emoji:'🍫',price:6.90,category:'Snacks',  outOfStock:true  },
+  { slot:'K4', name:'Kinder Bueno White T2 39g',        emoji:'🍫', price:7.40, category:'Snacks',  outOfStock:false },
+  { slot:'K5', name:'FM Collection Sour Cream & Onion Potato Chips',emoji:'🥔',price:5.10,category:'Chips',outOfStock:false},
+  { slot:'K6', name:'FM Collection Hot & Spicy Potato Chips',emoji:'🌶️',price:5.10,category:'Chips',outOfStock:false},
+  { slot:'K7', name:'FM Collection Smoked BBQ Potato Chips',emoji:'🥔',price:5.10,category:'Chips', outOfStock:false },
+  { slot:'K8', name:'Tong Garden Honey Cashewnut 40g',  emoji:'🥜', price:5.70, category:'Snacks',  outOfStock:false },
+  // Drinks
+  { slot:'L1', name:'FM Japanese Green Tea 600ml',      emoji:'🍵', price:5.90, category:'Drinks',  outOfStock:false },
+  { slot:'L2', name:'Famimaru Jasmine Tea 600ml',       emoji:'🧋', price:6.50, category:'Drinks',  outOfStock:false },
+  { slot:'L3', name:'Famimaru Barley Tea 600ml',        emoji:'🧋', price:6.50, category:'Drinks',  outOfStock:false },
+  { slot:'L4', name:'FamilyMart Natural Mineral Water 600ml',emoji:'💧',price:2.10,category:'Drinks',outOfStock:false},
+  { slot:'L5', name:'FamilyMart Natural Mineral Water 600ml (2nd)',emoji:'💧',price:2.10,category:'Drinks',outOfStock:false},
+  // Bakery / Hot food
+  { slot:'H1', name:'Chicken Mushroom Oyaki Bun',       emoji:'🥐', price:4.40, category:'Bakery',  outOfStock:false },
+  { slot:'H2', name:'Tuna Mayo Oyaki Bun',              emoji:'🥐', price:4.40, category:'Bakery',  outOfStock:false },
+  { slot:'H3', name:'Red Bean Cream Oyaki Bun',         emoji:'🥐', price:4.40, category:'Bakery',  outOfStock:false },
+  { slot:'H4', name:'Cranberry Cream Cheese Oyaki Bun XL',emoji:'🥐',price:5.90,category:'Bakery', outOfStock:false },
+  // Featured
+  { slot:'F3', name:'Alfredo Chicken Wrap',             emoji:'🌯', price:9.35, category:'Hot Food', outOfStock:false },
+  { slot:'F4', name:'Triple Chocolate Choux Cream',     emoji:'🍫', price:5.45, category:'Hot Food', outOfStock:false },
+  { slot:'D9', name:'Betagen Cultured Milk Strawberry 300ml',emoji:'🥛',price:3.90,category:'Drinks',outOfStock:false},
+];
+
+const MAX_ITEMS = 6;
+let cart = []; // array of slot strings
+
+// ════════════════════════════════════════
+//  CART STATE
+// ════════════════════════════════════════
+function cartTotal() {
+  return cart.reduce((s, slot) => {
+    const p = CATALOGUE.find(c=>c.slot===slot);
+    return s + (p ? p.price : 0);
+  }, 0);
+}
+function fmt(n) { return 'RM ' + n.toFixed(2); }
+
+function addItem(slot) {
+  if (cart.length >= MAX_ITEMS) {
+    alert('Maximum 6 items per transaction.');
+    return;
+  }
+  const prod = CATALOGUE.find(c=>c.slot===slot);
+  if (!prod || prod.outOfStock) return;
+  cart.push(slot);
+  refreshCartBar();
+  renderProductList();
+}
+
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  refreshCartBar();
+  renderCartList();
+  refreshCartBar();
+}
+
+function refreshCartBar() {
+  const bar = document.getElementById('cart-bar');
+  document.getElementById('cart-count').textContent = cart.length;
+  document.getElementById('cart-total').textContent = fmt(cartTotal());
+  bar.classList.toggle('visible', cart.length > 0);
+}
+
+// ════════════════════════════════════════
+//  RENDER PRODUCT LIST
+// ════════════════════════════════════════
+function renderProductList() {
+  const el = document.getElementById('product-list');
+  el.innerHTML = '';
+  const cats = [...new Set(CATALOGUE.map(p=>p.category))];
+  cats.forEach(cat => {
+    const items = CATALOGUE.filter(p=>p.category===cat);
+    const header = document.createElement('div');
+    header.style.cssText = 'font-size:.65rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.6px;padding:4px 0 2px;';
+    header.textContent = cat;
+    el.appendChild(header);
+    items.forEach(p => {
+      const qty = cart.filter(s=>s===p.slot).length;
+      const chip = document.createElement('div');
+      chip.className = 'product-chip' + (p.outOfStock ? ' out' : '');
+      chip.style.opacity = p.outOfStock ? '0.55' : '1';
+      chip.innerHTML = `
+        <div class="chip-img">${p.emoji}</div>
+        <div class="chip-info">
+          <div class="chip-name">${p.name}</div>
+          <div class="chip-slot">${p.slot} ${p.outOfStock ? '<span class="out-badge">Out of Stock</span>':''}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <div class="chip-price">${fmt(p.price)}</div>
+          ${qty>0 ? `<div class="qty-badge">${qty}</div>` : ''}
+        </div>
+      `;
+      if (!p.outOfStock) chip.onclick = () => addItem(p.slot);
+      el.appendChild(chip);
+    });
+  });
+}
+
+// ════════════════════════════════════════
+//  RENDER CART LIST
+// ════════════════════════════════════════
+function renderCartList() {
+  const el = document.getElementById('cart-list');
+  el.innerHTML = '';
+  if (cart.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:30px;color:#aaa;font-size:.75rem;">Your cart is empty.<br>Go back to add items.</div>';
+    document.getElementById('btn-checkout').disabled = true;
+    return;
+  }
+  document.getElementById('btn-checkout').disabled = false;
+  cart.forEach((slot, idx) => {
+    const p = CATALOGUE.find(c=>c.slot===slot);
+    if (!p) return;
+    const item = document.createElement('div');
+    item.className = 'cart-item';
+    item.innerHTML = `
+      <div class="cart-item-emoji">${p.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${p.name}</div>
+        <div class="cart-item-slot">${p.slot}</div>
+      </div>
+      <div class="cart-item-price">${fmt(p.price)}</div>
+      <button class="btn-remove" onclick="removeFromCart(${idx})">✕</button>
+    `;
+    el.appendChild(item);
+  });
+  const t = cartTotal();
+  document.getElementById('summary-sub').textContent = fmt(t);
+  document.getElementById('summary-total').textContent = fmt(t);
+}
+
+// ════════════════════════════════════════
+//  HERO ADD
+// ════════════════════════════════════════
+function addFromHero(slot) {
+  addItem(slot);
+  // Quick visual flash
+  const bar = document.getElementById('cart-bar');
+  bar.style.filter = 'brightness(1.25)';
+  setTimeout(()=>bar.style.filter='',300);
+}
+
+// ════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  if (id === 'screen-cart') renderCartList();
+  if (id === 'screen-payment') {
+    document.getElementById('pay-amount').textContent = fmt(cartTotal());
+    selectedMethod = null;
+    document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+    document.getElementById('btn-paynow').disabled = true;
+  }
+}
+
+function proceedToPayment() {
+  const remaining = MAX_ITEMS - cart.length;
+  document.getElementById('addmore-desc').textContent = `(${remaining} more item(s) can be added)`;
+  showOverlay('overlay-addmore');
+}
+
+// ════════════════════════════════════════
+//  PAYMENT
+// ════════════════════════════════════════
+let selectedMethod = null;
+
+function selectPayMethod(el, method) {
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedMethod = method;
+  document.getElementById('btn-paynow').disabled = false;
+}
+
+function doPayNow() {
+  if (!selectedMethod) return;
+  // Show membership prompt first
+  showOverlay('overlay-membership');
+}
+
+function skipMembership() {
+  closeOverlay('overlay-membership');
+  startPendingPayment();
+}
+
+function fakeScanMembership() {
+  closeOverlay('overlay-membership');
+  // short delay simulating scan
+  setTimeout(startPendingPayment, 600);
+}
+
+function startPendingPayment() {
+  const labels = {
+    card:'Credit/Debit Card', grabpay:'GrabPay',
+    tng:'Touch\'n Go eWallet', boost:'Boost Pay', maybank:'Maybank QR'
+  };
+  document.getElementById('pending-amount').textContent = fmt(cartTotal());
+  document.getElementById('pending-method-label').textContent = labels[selectedMethod] || selectedMethod;
+  goTo('screen-pending');
+
+  // Simulate payment success after 3s
+  setTimeout(()=>{
+    simulatePaymentSuccess();
+  }, 3000);
+}
+
+function cancelPayment() {
+  goTo('screen-payment');
+}
+
+function simulatePaymentSuccess() {
+  const total = cartTotal();
+  let idx = 0;
+  const items = [...cart];
+
+  function dispenseNext() {
+    if (idx >= items.length) {
+      finaliseSuccess(items, total);
+      return;
+    }
+    const p = CATALOGUE.find(c=>c.slot===items[idx]);
+    document.getElementById('dispense-icon').textContent = p ? p.emoji : '📦';
+    document.getElementById('dispense-item-label').textContent = `Item ${idx+1} / ${items.length}`;
+    const pct = Math.round(((idx+1)/items.length)*100);
+    goTo('screen-dispensing');
+    setTimeout(()=>{
+      document.getElementById('dispense-bar').style.width = pct + '%';
+    }, 100);
+    document.getElementById('btn-dispense-confirm').style.display = 'none';
+    setTimeout(()=>{
+      document.getElementById('btn-dispense-confirm').style.display = 'block';
+    }, 1500);
+    // Auto-advance after 3s or wait for confirm
+    idx++;
+    currentDispenseNext = dispenseNext;
+  }
+
+  dispenseNext();
+}
+
+let currentDispenseNext = null;
+
+function dispenseConfirm() {
+  if (currentDispenseNext) currentDispenseNext();
+}
+
+// ── receipt data stored for PDF generation ──
+let lastReceiptData = null;
+
+function finaliseSuccess(items, total) {
+  const el = document.getElementById('success-stats');
+  el.innerHTML = '';
+  items.forEach(slot => {
+    const p = CATALOGUE.find(c=>c.slot===slot);
+    if (!p) return;
+    const row = document.createElement('div');
+    row.className = 'stat-row';
+    row.innerHTML = `<span class="k">${p.emoji} ${p.name}</span><span class="v">${fmt(p.price)}</span>`;
+    el.appendChild(row);
+  });
+  const totalRow = document.createElement('div');
+  totalRow.className = 'stat-row';
+  totalRow.innerHTML = `<span class="k" style="font-weight:700">Total</span><span class="v" style="color:#00a651">${fmt(total)}</span>`;
+  el.appendChild(totalRow);
+  document.getElementById('success-count').textContent = `${items.length}/${items.length}`;
+
+  // Store for receipt generation
+  const now = new Date();
+  const receiptNo = 'TI' +
+    String(now.getFullYear()).slice(2) +
+    String(now.getMonth()+1).padStart(2,'0') +
+    String(now.getDate()).padStart(2,'0') +
+    'M0014' +
+    String(now.getHours()).padStart(2,'0') +
+    String(now.getMinutes()).padStart(2,'0') +
+    String(now.getSeconds()).padStart(2,'0');
+  const methodLabels = {
+    card:'CREDIT/DEBIT CARD', grabpay:'GRABPAY',
+    tng:'TOUCHNGO', boost:'BOOST', maybank:'MAYBANKQR'
+  };
+  lastReceiptData = {
+    receiptNo,
+    date: now.toUTCString().replace('GMT','GMT+0800 (Malaysia Time)'),
+    store: 'M0014 - R&R Dengkil North Bound',
+    items: items.map(slot => CATALOGUE.find(c=>c.slot===slot)).filter(Boolean),
+    total,
+    payMethod: methodLabels[selectedMethod] || (selectedMethod||'').toUpperCase()
+  };
+
+  goTo('screen-success');
+}
+
+function generateEReceipt() {
+  if (!lastReceiptData) return;
+  const d = lastReceiptData;
+
+  // Build item rows HTML
+  const itemRows = d.items.map(p => `
+    <tr>
+      <td style="padding:6px 4px;font-size:12px;color:#333;">${p.name}</td>
+      <td style="padding:6px 4px;font-size:12px;text-align:center;color:#333;">1</td>
+      <td style="padding:6px 4px;font-size:12px;text-align:right;color:#333;">${p.price.toFixed(2)}</td>
+      <td style="padding:6px 4px;font-size:12px;text-align:right;color:#333;">${p.price.toFixed(2)}</td>
+    </tr>`).join('');
+
+  // Mini QR using CSS (decorative — matches real receipt look)
+  const qrCSS = `repeating-conic-gradient(#000 0% 25%, transparent 0% 50%) 0/8px 8px`;
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FamilyMart Mini e-Receipt</title>
+<style>
+  body { margin:0; background:#cde8f5; font-family:'Segoe UI',Arial,sans-serif; }
+  .page { max-width:600px; margin:0 auto; background:#fff; min-height:100vh; padding:32px 32px 24px; }
+  .logo-row { display:flex; align-items:center; gap:14px; justify-content:center; margin-bottom:16px; }
+  .logo-flag { display:flex; flex-direction:column; gap:3px; }
+  .logo-flag div:nth-child(1) { width:44px; height:8px; background:#00a651; border-radius:2px; }
+  .logo-flag div:nth-child(2) { width:44px; height:8px; background:#3ab4e8; border-radius:2px; }
+  .logo-text { font-size:32px; font-weight:900; color:#3ab4e8; letter-spacing:-1px; }
+  .thank-you { text-align:center; font-size:14px; font-weight:700; color:#00a651; margin-bottom:10px; letter-spacing:.5px; }
+  .receipt-title { font-size:16px; font-weight:700; color:#3ab4e8; margin-bottom:4px; }
+  .receipt-no { font-size:12px; color:#3ab4e8; margin-bottom:14px; }
+  hr { border:none; border-top:1px solid #ddd; margin:12px 0; }
+  .info-block { margin-bottom:10px; }
+  .info-block p { font-size:12px; color:#222; margin:3px 0; font-weight:600; }
+  .section-title { font-size:13px; font-weight:700; color:#3ab4e8; margin:14px 0 8px; }
+  table { width:100%; border-collapse:collapse; }
+  thead tr th { font-size:11px; font-weight:700; color:#555; padding:4px; border-bottom:1px solid #ddd; }
+  thead th:first-child { text-align:left; }
+  thead th:not(:first-child) { text-align:right; }
+  thead th:nth-child(2) { text-align:center; }
+  tfoot tr td { font-size:13px; font-weight:700; padding:7px 4px; border-top:1px solid #ddd; }
+  tfoot td:first-child { color:#333; }
+  tfoot td:last-child { text-align:right; color:#333; }
+  .pay-method { font-size:12px; font-weight:700; color:#333; margin-top:4px; }
+  .qr-section { margin-top:18px; }
+  .qr-box { width:80px; height:80px; background: ${qrCSS}; border-radius:4px; }
+  .qr-label { font-size:11px; font-weight:700; color:#333; margin-top:6px; }
+  .qr-sub { font-size:10px; color:#888; font-style:italic; }
+  footer { text-align:center; font-size:10px; color:#888; margin-top:28px; padding-top:12px; border-top:1px solid #eee; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="logo-row">
+    <div class="logo-flag"><div></div><div></div></div>
+    <div class="logo-text">FamilyMart</div>
+  </div>
+
+  <div class="thank-you">THANK YOU FOR ORDERING FROM US!</div>
+
+  <div class="receipt-title">FamilyMart Mini Smart Kiosk e-Receipt</div>
+  <div class="receipt-no">Order Details (Receipt No: ${d.receiptNo})</div>
+
+  <hr>
+  <div class="info-block">
+    <p>Order Date: ${d.date}</p>
+    <p>Store: ${d.store}</p>
+  </div>
+  <hr>
+
+  <div class="section-title">Order Summary</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th style="text-align:center;">Qty</th>
+        <th style="text-align:right;">Unit Price (RM)</th>
+        <th style="text-align:right;">Price (RM)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${itemRows}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">Subtotal</td>
+        <td style="text-align:right;">RM${d.total.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="font-size:14px;font-weight:800;">Total</td>
+        <td style="text-align:right;font-size:14px;font-weight:800;">RM${d.total.toFixed(2)}</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p class="pay-method" style="margin-top:10px;">Payment Method: ${d.payMethod}</p>
+
+  <div class="qr-section">
+    <div class="qr-box"></div>
+    <div class="qr-label">Need E-INVOICE? Scan Here</div>
+    <div class="qr-sub">(Only applicable for same transaction month)</div>
+  </div>
+
+  <footer>©${new Date().getFullYear()} FAMILYMART MALAYSIA. ALL RIGHTS RESERVED.</footer>
+</div>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `FM-eReceipt-${d.receiptNo}.html`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
+function resetKiosk() {
+  cart = [];
+  selectedMethod = null;
+  refreshCartBar();
+  renderProductList();
+  goTo('screen-menu');
+  // scroll list to top
+  const pl = document.getElementById('product-list');
+  if (pl) pl.scrollTop = 0;
+}
+
+// ════════════════════════════════════════
+//  OVERLAY HELPERS
+// ════════════════════════════════════════
+function showOverlay(id) { document.getElementById(id).classList.add('show'); }
+function closeOverlay(id){ document.getElementById(id).classList.remove('show'); }
+
+// close overlay clicking backdrop
+document.querySelectorAll('.overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('show'); });
+});
+
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+renderProductList();
+</script>
+</body>
+</html>
