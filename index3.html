@@ -89,6 +89,17 @@
 
     <!-- Content -->
     <div class="container mt-4">
+
+        <h3 id="myWorkedOnMetech">My Websites</h3>
+        <div class="row" id="mywebsitedata"></div>
+        <div class="row" id="mywebsitedata2"></div>
+
+        <h3 id="myWorkedOnMetech">My Projects at Emerson Process Management</h3>
+        <div class="row" id="myworkeddata3"></div>
+
+        <h3 id="myWorkedOnMetech">My Study Projects</h3>
+        <div class="row" id="mystudydata"></div>
+
         <h3 id="myWorkedOnMetech">My Projects at Me-Tech Solution</h3>
         <div class="row" id="myworkeddata"></div>
         <div class="row" id="myworkeddata2"></div>
@@ -112,7 +123,7 @@
                                 <h5 class="card-title">${title}</h5>
                                 <p class="card-text"><small>${made}</small></p>
                                 <p class="card-text">${desc}</p>
-                                <a href="${link}" class="btn btn-primary">Visit</a>
+                                ${link ? `<a href="${link}" class="btn btn-primary">Visit</a>` : ''}
                             </div>
                         </div>
                     </div>`;
@@ -124,32 +135,64 @@
                 container.innerHTML = data.map(item => createCard(...item)).join('');
             }
 
+
+            //websites
+            const websites = [
+                ["Ular Ular Game", "./img/ularular.png", "Self Project", "Online Educational game for learning.", "https://ularulars.web.app/"],
+                ["Block Puzzle Game", "./img/blockpuzzle.png", "Self Project", "Online 2 players puzzle game.", "https://afwanhaziq.my/block-puzzle/"],
+            ];
+            const websites2 = [
+                ["Catalog Baju", "./img/catalogbaju.png", "Self Project", "Online Catalog website for Baju.", "https://afwanhaziq.vps.webdock.cloud/catalogbaju/"],
+            ];
+
+            //Emerson
+            const workedProjects3 = [ 
+                ["Autocalibration", "/img/autocalibration.png", "Developer", "Auto Key-in tool for Calibration using PLC, Power Automate Desktop and Python.", ""],
+                ["Seatleak Management", "/img/seatleak.png", "Developer", "Seatleak Video Management to Store Video Files and Analyze them.", ""],
+                ["Benchstock Management", "/img/benchstock.png", "Developer", "Benchstock Data Management to Store and Analyze Benchstock Data.", ""],
+                ["Filterer", "/img/filterer.png", "Developer", "Data filterer for Each order's data.", ""],
+            ];
+
+            //study
+            const study = [
+                ["Mokde App", "./img/Mokde.jpg", "Student Project", "Assignment website on Semester 4 Degree in UMT.", "https://c24-s60348.github.io/MokdeApp/Mokde.html"],
+                ["CRUD Tutorial", "./img/uWu HTML.PNG", "Student Project", "TodoList website that i follow along tutorial on Youtube.", "https://c24-s60348.github.io/CRUD Tutorial Youtube/index.html"],
+                ["QR Code Generator Tutorial", "./img/qrcodeGenerator.png", "Student Project", "QR Code Generator website that i follow tutorial on Youtube", "https://c24-s60348.github.io/QR Scanner3/index.html"],
+            ];
+
+            //Metech
             const workedProjects = [
                 ["Firefly Mobile Website", "./img/mfireflyz.png", "Fullstack Developer", "Revamp and maintain Firefly mobile booking website.", "https://m.fireflyz.com.my"],
                 ["Firefly Mobile App", "./img/mobilefireflyz.png", "Backend Developer", "Revamp and maintain Firefly mobile app's API", "https://play.google.com/store/apps/details?id=com.metech.firefly"]
             ];
-
-            const workedProjects2 = [
-                ["tripPAX app", "/img/trippax.png", "Fullstack Developer", "Trip planner app.", "https://play.google.com/store/apps/details?id=com.metech.trippax"],
+            //new line
+            const workedProjects2 = [ 
+                ["tripPAX app", "./img/trippax.png", "Fullstack Developer", "Trip planner app.", "https://play.google.com/store/apps/details?id=com.metech.trippax"],
                 ["Rojerbro app", "./img/rojerbro.png", "Backend Developer", "Map information app.", "https://play.google.com/store/apps/details?id=com.metech.rojerbroapp"],
                 ["Sewajer app", "./img/sewajer.png", "Fullstack Developer", "Car renting app.", "https://play.google.com/store/apps/details?id=com.me_tech.my.SewaJerAppOwner"],
                 ["Firefly Desktop Website", "./img/bookingfireflyz.png", "Fullstack Developer", "Revamp and maintain Firefly Desktop booking website.", "https://booking.fireflyz.com.my"]
             ];
 
+            //games
             const games = [
                 ["Starman Odyssey", "./img/Starman Oddysey.jpg", "March 2018", "A Mario-style platformer for learning Chemistry.", "https://afwanhaziq.itch.io/starmanodyssey"],
                 ["PnC Game", "./img/PnC Game.jpg", "March 2021", "A game for learning Permutation and Combination.", "https://afwanhaziq.itch.io/pnc-game"],
                 ["DIFFI", "./img/DIFFI App.jpg", "Feb 2021", "Educational game to learn Chinese and Arabic.", "https://afwanhaziq.itch.io/diffi-app"]
             ];
 
+            //apps
             const apps = [
                 ["Hadis 40 Imam Nawawi", "./img/hadis40.png", "Dec 2019", "Book app for Hadis 40 Imam Nawawi.", "https://play.google.com/store/apps/details?id=com.af1gaming.hadis40"],
                 ["Celik Tafsir", "./img/celiktafsir.png", "July 2020", "Book app for Celik Tafsir.", "https://play.google.com/store/apps/details?id=com.af1productions.celiktafsir"],
                 ["Formula Calculator", "./img/formula calculator.png", "Oct 2019", "A formula calculator app.", "https://play.google.com/store/apps/details?id=io.kodular.afwanhaziq987.FormulaCalculator"]
             ];
 
+            populateSection("mystudydata", study);
+            populateSection("mywebsitedata", websites);
+            populateSection("mywebsitedata2", websites2);
             populateSection("myworkeddata", workedProjects);
             populateSection("myworkeddata2", workedProjects2);
+            populateSection("myworkeddata3", workedProjects3);
             populateSection("mygamesdata", games);
             populateSection("myappsdata", apps);
         });
