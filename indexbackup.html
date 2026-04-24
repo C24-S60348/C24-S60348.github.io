@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Afwan's Website</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- CSS only -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+      <!-- Custom styles for this template -->
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <style>
+         *{
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+         }
+         body {
+            background: rgb(2,0,36);
+            background: linear-gradient(13deg, rgba(2,0,36,1) 0%, rgba(150,255,75,1) 0%, rgba(198,255,218,1) 100%);
+         }
+
+         .tooltip-wrap {
+            position: relative;
+         }
+            .tooltip-wrap .tooltip-content {
+            display: none;
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            right: 5%;
+            background-color: #fff;
+            padding: .5em;
+            min-width: 10rem;
+         }
+         .tooltip-wrap:hover .tooltip-content {
+            display: block;
+         }
+         .navbar {
+            position: fixed; /* Set the navbar to fixed position */
+            top: 0; /* Position the navbar at the bottom of the page */
+            width: 100%; /* Full width */
+            z-index: 100;
+         }
+
+         /* Main content */
+         .main {
+         
+         }
+         .title {
+            padding-top:100px;
+            width: 100%;
+            background-color: ;
+            position: relative;
+         }
+         .card {
+             border-radius:12px;
+             
+         }
+         
+         
+         
+
+      </style>
+   
+   </head>
+   <body style="text-align: center; display: flex; flex-direction: column;">
+      
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <a class="navbar-brand" style="user-select: none;">Afwan's Website</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+         </button>
+       
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav mr-auto">
+             <li class="nav-item active">
+               <a class="nav-link" href="./index2.html#myWebsitesTitle">My Websites <span class="sr-only">(current)</span></a>
+             </li>
+             
+            <li class="nav-item">
+               <a class="nav-link" href="./index2.html#myAppsTitle">My Apps</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="./index2.html#myGamesTitle">My Games</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="./index2.html#myOldGameTitle">My Old Games</a>
+            </li>
+            
+            
+            <li class="nav-item ">
+               <a class="nav-link disabled" href="#">Photography</a>
+            </li>
+            <li class="nav-item ">
+               <a class="nav-link disabled" href="#">Art</a>
+            </li>
+         </ul>
+               <!-- <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+               </form>  -->
+           
+         </div>
+      </nav>
+       
+      <div class="main">
+          
+           <div class="center" style="text-align: center; align-items: center; display: flex; flex-direction: column; align-content: space-between; ">
+
+      
+
+             
+        <script>
+			var card1 = "";
+			var card2 = "";
+			var card3 = "";
+			var cardgroup = "";
+            function createcard(title, img, made, desc, link)
+            {
+                return `
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+               <div class="card-header">`+title+`</div>
+               
+               <div class="card-body ">
+                  <div class="tooltip-wrap">
+                     <img class="card-img-top" src="`+img+`" alt="`+title+`">
+               
+                  <div class="tooltip-content">
+                     `+made+`
+                  </div> 
+               </div>
+                  
+               <p class="card-text">`+desc+`</p>
+               <a href="`+link+`" class="btn btn-primary">Go</a>
+               </div>
+            </div>
+                `;
+            }
+            function createcardgroup(card1, card2, card3)
+            {
+                
+                return '<div class="card-group" style="justify-content:center;text-align:center;">' + card1 + card2 + card3 + '</div>';
+            }
+        </script>
+        
+         <div class="title" style="display:flex;width:100%;">
+
+           <span style="width:20%;">💻</span>
+         <h3 id="myWorkedOnMetech" style="width:60%;">My involved project in Me-Tech Solution Sdn Bhd.
+          
+         
+         </h3>
+       
+         <span style="width:20%;">💻</span>
+         </div>
+       
+       
+        
+        <div id="myworkeddata"></div>
+        
+        	 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "Firefly Mobile Website",
+                "./img/mfireflyz.png",
+                "Worked with Hoo. Fullstack developer",
+                "Revamp and maintain Firefly mobile booking website.",
+                "https://m.fireflyz.com.my");
+                
+            card2 = createcard(
+                "Firefly Desktop Website",
+                "./img/bookingfireflyz.png",
+                "Worked with Hoo. Fullstack developer",
+                "Revamp and maintain Firefly Desktop booking website.",
+                "https://booking.fireflyz.com.my");
+                
+            card3 = createcard(
+                "Firefly Mobile app",
+                "./img/mobilefireflyz.png",
+                "Worked as a Backend Developer",
+                "Revamp and maintain Firefly mobile app's API",
+                "https://play.google.com/store/apps/details?id=com.metech.firefly");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myworkeddata").innerHTML += cardgroup;
+            
+            //line 2
+            card1 = createcard(
+                "tripPAX App",
+                "./img/trippax.png",
+                "Worked with Fad",
+                "Worked as a fullstack developer for trip planner app.",
+                "https://play.google.com/store/apps/details?id=com.metech.trippax");
+                
+            card2 = createcard(
+                "Rojerbro",
+                "./img/rojerbro.png",
+                "Worked with Afiq",
+                "Worked as a backend developer for map information app.",
+                "https://play.google.com/store/apps/details?id=com.metech.rojerbroapp");
+                
+            card3 = createcard(
+                "Sewajer",
+                "./img/sewajer.png",
+                "Worked with Niesha",
+                "Worked as a backend developer for car renting app.",
+                "https://play.google.com/store/apps/details?id=com.me_tech.my.SewaJerAppOwner");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myworkeddata").innerHTML += cardgroup;
+					
+		</script>
+
+
+        <div class="title" style="display:flex;width:100%;">
+
+           <span style="width:20%;">🎮</span>
+         <h3 id="myGamesTitle" style="width:60%;">My Games
+          
+         
+         </h3>
+       
+         <span style="width:20%;">🎮</span>
+         </div>
+       
+		 <div id="mygamesdata"></div>
+		 
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "Starman Oddysey",
+                "./img/Starman Oddysey.jpg",
+                "Made March 2018",
+                "Platformer old-like Mario game to learn Chemistry subject.",
+                "https://afwanhaziq.itch.io/starmanodyssey");
+                
+            card2 = createcard(
+                "PnC Game",
+                "./img/PnC Game.jpg",
+                "Made March 2021",
+                "Permutation and Combination learning game.",
+                "https://afwanhaziq.itch.io/pnc-game");
+                
+            card3 = createcard(
+                "DIFFI - Learn Arabic and Mandarin",
+                "./img/DIFFI App.jpg",
+                "Made Feb 2021",
+                "Educational game to learn Chinese and Arabic language",
+                "https://afwanhaziq.itch.io/diffi-app");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+			//line 2
+            card1 = createcard(
+                "Adventure Into Cell",
+                "./img/AdventureIntoCell.png",
+                "Made June 2019",
+                "Platformer game to learn Biology subject.",
+                "https://afwanhaziq.itch.io/platformer-plant?secret=UG8IQCrK3TWEmWNC7J9EdjaiM");
+                
+            card2 = createcard(
+                "Lightics Exploration",
+                "./img/LighticsExploration.jpg",
+                "Made July 2020",
+                "Physics of Light learning game.",
+                "https://afwanhaziq.itch.io/lightics-exploration");
+                
+            card3 = createcard(
+                "Mathsery Island",
+                "./img/Mathsery Island.jpg",
+                "Made July 2020",
+                "Educational game to learn Math",
+                "https://afwanhaziq.itch.io/mathsery-island");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+			//line 3
+            card1 = createcard(
+                "Fish Eat Fish 4 Players",
+                "./img/FishEatFish2.png",
+                "Made Jan 2018",
+                "",
+                "https://www.construct.net/en/free-online-games/fish-eat-fish-players-4016/play");
+                
+            card2 = createcard(
+                "MainMatik",
+                "./img/MainMatik.jpg",
+                "Made April 2021",
+                "",
+                "https://afwanhaziq.itch.io/mainmatik");
+            
+            card3 = "";
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mygamesdata").innerHTML += cardgroup;
+			
+		</script>
+		 
+
+         <br><br>
+         
+         <div class="title" style="display:flex;width:100%;">
+
+           <span style="width:20%;">📱</span>
+         <h3 id="myAppsTitle" style="width:60%;">My Apps
+          
+         
+         </h3>
+       
+         <span style="width:20%;">📱</span>
+         </div>
+        
+		 
+		 <div id="myappsdata"></div>
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "Hadis 40 Imam Nawawi",
+                "./img/hadis40.png",
+                "Made Dec 2019",
+                "Book app for Hadis 40 Imam Nawawi",
+                "https://play.google.com/store/apps/details?id=com.af1gaming.hadis40&hl=ms&gl=US");
+                
+            card2 = createcard(
+                "Celik Tafsir",
+                "./img/celiktafsir.png",
+                "Made July 2020",
+                "Book app for celiktafsir.net",
+                "https://play.google.com/store/apps/details?id=com.af1productions.celiktafsir&hl=ms&gl=US");
+                
+            card3 = createcard(
+                "Formula Calculator",
+                "./img/formula calculator.png",
+                "Made Oct 2019",
+                "",
+                "https://play.google.com/store/apps/details?id=io.kodular.afwanhaziq987.FormulaCalculator&hl=ms&gl=US");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+            
+            //line 2
+            card1 = createcard(
+                "Balance It",
+                "./img/BalanceIt.png",
+                "Made Nov 2022",
+                "Balancing game",
+                "https://play.google.com/store/apps/details?id=com.af1productions.balanceit");
+                
+            card2 = createcard(
+                "Mudah Belajar Arab + Jawi",
+                "./img/mudahBelajarArab.png",
+                "Made Sep 2020",
+                "App to learn Arabic language and Jawi text.",
+                "https://play.google.com/store/apps/details?id=com.af1productions.mudahbelajararab");
+                
+            card3 = createcard(
+                "Mari Belajar Bahasa Arab - Unity3D",
+                "./img/MariBelajarArabUnity3D.png",
+                "Made Feb 2020",
+                "The first version of Mudah Belajar Arab but using Unity3D engine.",
+                "https://play.google.com/store/apps/details?id=com.af1productions.belajararab");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+			
+			//line 3
+            card1 = createcard(
+                "Waktu Solat",
+                "./img/WaktuSolat.jpg",
+                "Made May 2020",
+                "Waktu Solat system to show prayer time in mosque",
+                "https://afwanhaziq.itch.io/waktu-solat");
+                
+            card2 = createcard(
+                "HeadCounter System",
+                "./img/HeadCounterSystem.jpg",
+                "Made March 2022",
+                "Headcounter system for event during Covid19 - Admin System",
+                "https://afwanhaziq.itch.io/headcounter-system");
+                
+            card3 = createcard(
+                "HeadCounter System - Input",
+                "./img/SystemHeadcounter_Input.png",
+                "Made March 2022",
+                "Headcounter system for event during Covid19 - Website for users",
+                "./HeadCounter_System/index.html");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+			
+			//line 4
+            card1 = createcard(
+                "Duitfy",
+                "./img/Duitfy.jpg",
+                "Made March 2022",
+                "Insprired by Monefy app.",
+                "https://afwanhaziq.itch.io/duitfy?secret=ZQCJvEg9hP2Jq0KuSRNpCqP8gE");
+            
+            card2 = "";
+                
+            card3 = "";
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myappsdata").innerHTML += cardgroup;
+            
+        </script>
+
+         <br><br>
+
+     
+              
+         <div class="title" style="display:flex;width:100%;">
+
+           <span style="width:20%;">🌐</span>
+         <h3 id="myWebsitesTitle" style="width:60%;">My Project Websites
+          
+         
+         </h3>
+       
+         <span style="width:20%;">🌐</span>
+         </div>
+        
+        
+        <div id="mywebsitedata"></div>
+        <script>
+			var card1 = "";
+			var card2 = "";
+			var card3 = "";
+			var cardgroup = "";
+			
+            //line 1
+            card1 = createcard(
+                "Mokde App",
+                "./img/Mokde.jpg",
+                "Made July 2022",
+                "Assignment website on Semester 4 Degree in UMT.",
+                "./MokdeApp/Mokde.html");
+                
+            card2 = createcard(
+                "CRUD Tutorial",
+                "./img/uWu HTML.PNG",
+                "Made 8 Jan 2021",
+                "TodoList website that i follow along tutorial on Youtube.",
+                "./CRUD Tutorial Youtube/index.html");
+                
+            card3 = createcard(
+                "QR Code Generator Tutorial",
+                "./img/qrcodeGenerator.png",
+                "Made 4 Jan 2021",
+                "QR Code Generator website that i follow tutorial on Youtube",
+                "./QR Scanner3/index.html");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            
+            //line 2
+            card1 = createcard(
+                "PandaMakan",
+                "./img/pandamakan.png",
+                "Made Ogos 2022",
+                "Front-End interface inspired by FoodPanda.",
+                "https://c24-s60348.github.io/individualAssignmentCordova/main.html");
+                
+            card2 = createcard(
+                "LabTest FrontEnd Sem 4",
+                "./img/LabTestCordova.png",
+                "Made Ogos 2022",
+                "Making an app to retrieve JSON data and display the id, email, name, and so on.",
+                "https://c24-s60348.github.io/labtestFrontEnd/");
+                
+            card3 = createcard(
+                "Group Assignment Web Sem 3",
+                "./img/EndangeredAnimalsWebSem3GroupProject.png",
+                "Made Feb 2022",
+                "Website to inform people about endangered species.",
+                "https://c24-s60348.github.io/S60348-SEM3-WEB/GroupProject/ourWebsite.html");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("mywebsitedata").innerHTML += cardgroup;
+            
+        </script>
+
+         <br><br>
+
+         <h3  id="myOldGameTitle" class="title">My Old Games made with GameMaker</h3>
+		 <div id="myoldgamesdata"></div>
+		 
+		 <script>
+		 
+            //line 1
+            card1 = createcard(
+                "ABCD to Barcode",
+                "./img/abcdbarcode.png",
+                "Made 4 Jan 2018",
+                "Change A B C D into barcode.",
+                "https://c24-s60348.github.io/GameMaker/Export_HTML/ABCD%20to%20barcode");
+                
+            card2 = createcard(
+                "Zuma Boss Round",
+                "./img/zumabossround.png",
+                "Made 14 Jan 2018",
+                "Made my own game art using Adobe Illustrator and a Zuma-like boss round.",
+                "https://c24-s60348.github.io/GameMaker/Export_HTML/Zuma%20boss%20round%202p");
+                
+            card3 = createcard(
+                "Zuma - 2 Players Test",
+                "./img/zuma2playerstest.png",
+                "Made 8 Jan 2018",
+                "Made the ball move in path.",
+                "https://c24-s60348.github.io/GameMaker/Export_HTML/Zuma%202%20players%20test");
+                
+            cardgroup = createcardgroup(card1, card2, card3);
+            
+            document.getElementById("myoldgamesdata").innerHTML += cardgroup;
+			
+			
+		</script>
+
+         <br><br>
+         <h2 class="title"> Random thing i do </h2>
+         ---Art gallery, 3d things, AR, dll---
+      
+      <br><br>
+      <footer>
+         About Me : <br>
+         Name : Afwan Haziq bin Hairollkahar <br>
+         Email : afwanhaziq987@gmail.com
+      </footer>
+   </div>
+      
+
+      <!-- JavaScript Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+   
